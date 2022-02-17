@@ -1,5 +1,5 @@
 {
-    "name": "hydrat/sellsy-client",
+    "name": "hydrat-agency/sellsy-client",
     "description": "A lightweight client to query the Sellsy API V2",
     "type": "library",
     "license": "MIT",
