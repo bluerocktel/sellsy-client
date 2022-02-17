@@ -35,7 +35,7 @@ class ContactsApi extends AbstractApi
      * @return \Illuminate\Http\Client\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-contacts
      */
-    public function index(array $query = [])
+    public function index(array $query = []): self
     {
         $response = $this->connection
                         ->request('contacts')

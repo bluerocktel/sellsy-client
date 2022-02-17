@@ -11,15 +11,18 @@
   - [Query the API](#usage_query)
     - [The basics](#usage_query_basic)
     - [Operations](#usage_query_operations)
+    - [Index a resource](#usage_query_index)
     - [Show a resource](#usage_query_show)
     - [Create a resource](#usage_query_create)
+    - [Update a resource](#usage_query_update)
+    - [Delete a resource](#usage_query_delete)
 - [Contribute](#contribute)
 - [Credits](#credits)
 - [License](#license)
 
 
-⚠️ This client is used to query the Sellsy API V2.  
-If you're looking for a client to query the V1 API, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client) instead.
+⚠️ This client helps you query the Sellsy API V2.  
+If you're looking for a client for the API V1, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client) instead.
 
 ## Introduction
 <a name="introduction"></a>
@@ -42,8 +45,8 @@ composer require hydrat-agency/sellsy-client
 ## Authenticate
 <a name="usage_auth"></a>
 
-This package only supports Single user OAuth authentication.  
-Before calling any api class nor the client helper, you MUST provide your credentials via the `Config` class :  
+This package only supports single user OAuth authentication.  
+Before calling any API class (or the Client helper), you MUST provide your credentials via the `Config` class :  
 
 ```php
 use Hydrat\Sellsy\Api\ContactsApi;
@@ -56,7 +59,9 @@ $config->set('url', 'https://api.sellsy.com/v2/') // optionnal, this is the defa
        ->set('client_id', 'f48f0fgm-2703-5689-2005-27403b5adb8d')
        ->set('client_secret', 'av8v94jx0ildsjje50sm9x1hnmjsg27bnqyryc0zgbmtxxmzpjzlw2vnj9aockwe');
 
-$this->v2 = new Client();
+$client = new Client();
+
+$client->contacts()->index()->json(); // List contacts from API.
 ```
 
 [Learn more](https://api.sellsy.com/doc/v2/#section/Authentication) about Sellsy API v2 credentials.
@@ -67,6 +72,17 @@ $this->v2 = new Client();
 ### The basics
 <a name="usage_query_basic"></a>
 
+The easiest way to start querying the API is to initialize the corresponding class and call the needed method(s) :  
+
+```php
+use Hydrat\Sellsy\Api\ContactsApi;
+
+$contacts = new ContactsApi();
+
+$contacts->show($client_id)
+```
+
+You may also use the client helper that holds all API namespaces using methods :  
 Using the Client helper : 
 
 ```php
@@ -74,58 +90,75 @@ use Hydrat\Sellsy\Core\Client;
 
 $client = new Client();
 
-$client->contacts()->index()
 $client->contacts()->show($client_id)
-$client->contacts()->update()
-$client->contacts()->create()
 
-// Or statically :
-Client::contacts()->index()
-```
-
-Using the API class : 
-
-```php
-use Hydrat\Sellsy\Api\ContactsApi;
-
-$contacts = new ContactsApi();
-
-$contacts->index()
-$contacts->show($client_id)
-$contacts->update()
-$contacts->create()
+# Or statically :
+Client::contacts()->show($client_id)
 ```
 
 ### Operations
 <a name="usage_query_operations"></a>
 
-ℹ️ To illustrate this part of the documentation we will query the [ContactsApi](https://api.sellsy.com/doc/v2/#tag/Contacts).
+ℹ️ To illustrate this part of the documentation, we will use the [ContactsApi](https://api.sellsy.com/doc/v2/#tag/Contacts) endpoint.
 
 This client is using the CRUD operations keywords to name API methods :  
 
-| Client Keyword | Related operation |
-|---|---|---|
-| `index` | List resources. | 
-| `show` | Get a single resource. |
-| `create` | Create a single resource. | 
-| `update` | Update a single resource. |  
-| `destroy` | Delete a single resource. |  
+| Client Keyword | Related operation |  
+|---|---|  
+| `index` | List resources. |  
+| `show` | Get a single resource. |  
+| `create` | Create a single resource. |  
+| `update` | Update a single resource. |   
+| `destroy` | Delete a single resource. |   
+| `search` | Search resources. |   
 
-e.g: To list Contacts, you should use `index()` method :  
+
+Methods signatures :  
+
+```php
+public function index(array $query = []): self;
+public function show(string $id, array $query = []): self;
+public function store(Contact $contact, array $query = []): self;
+public function update(Contact $contact, array $query = []): self;
+public function destroy(int $id): self;
+```
+
+When querying the API, you get back an API object containing a response. If something goes wrong, a `RequestException` will be thrown. Most of the time, you only need to get the response entity sent back from the API : `$client->entity()`. But you can also make use of other available methods :  
 
 ```php
 use Hydrat\Sellsy\Api\ContactsApi;
 
 $contacts = new ContactsApi();
 
-$contacts->index()->entity(); # Get resources entities
-$contacts->index()->json();   # Get raw data from response
+$api = $contacts->index();   # List
+$api = $contacts->get(123);  # Get
+
+$api->entity();      # Get single resource entity, when available
+$api->entities();    # Get resource entities, when available (for listing/search)
+$api->pagination();  # Get the pagination object, when available
+$api->json();        # Get raw json data from response, as associative array
+$api->response();    # Get the \Illuminate\Http\Client\Response object
+``` 
+
+Under the hood, this client uses the [Laravel HTTP client](laravel.com/docs/7.x/http-client), which is a minimal wrapper around the [Guzzle HTTP client](https://docs.guzzlephp.org/en/stable/). By calling the `->response()` method, you get a Response containing a variety of methods that may be used to inspect the response :  
+
+```php
+$api->response()->body(): string;
+$api->response()->json(): array|mixed;
+$api->response()->status(): int;
+$api->response()->ok(): bool;
+$api->response()->successful(): bool;
+$api->response()->failed(): bool;
+$api->response()->serverError(): bool;
+$api->response()->clientError(): bool;
+$api->response()->header($header): string;
+$api->response()->headers(): array;
 ```
 
 #### List a resource
 <a name="usage_query_list"></a>
 
-To show a resource, we use the `index()` method. This method accept query parameters as argument.  
+To list a resource, we use the `index()` method. This method accept query parameters as argument.  
 
 ```php
 $contacts = new ContactsApi();
@@ -139,12 +172,12 @@ $index->pagination();  // The pagination object
 #### Show a resource
 <a name="usage_query_show"></a>
 
-To show a resource, we use the `show()` method. This method accept the contact ID as first parameter : 
+To show a resource, we use the `show()` method. This method accept the resource id as first parameter : 
 
 ```php
 $contacts = new ContactsApi();
 
-$contacts->show(35520506)->entity();
+$contacts->show(123)->entity();
 ```
 
 This returns a `Hydrat\Sellsy\Entities\Contact` instance :  
