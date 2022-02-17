@@ -15,6 +15,11 @@ use Hydrat\Sellsy\Exceptions\DomainException;
  */
 class Client
 {
+    public function __call(string $name, array $arguments)
+    {
+        return static::__callStatic($name, $arguments);
+    }
+
     /**
      * To return the collection instance, initiated by the definition.
      *

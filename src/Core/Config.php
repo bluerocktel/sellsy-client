@@ -43,12 +43,27 @@ class Config
     }
 
     /**
+     * Singletons should not be cloneable.
+     */
+    protected function __clone()
+    {
+    }
+    
+    /**
+     * Singletons should not be restorable from strings.
+     */
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
+
+    /**
      * The configuration array.
      *
      * @var array
      */
     protected array $config = [
-        'url'            => '',
+        'url'            => 'https://api.sellsy.com/v2/',
         'client_id'      => '',
         'client_secret'  => '',
         'authentication' => [

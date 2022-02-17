@@ -50,6 +50,21 @@ class Connection
     {
         $this->config = Config::getInstance();
     }
+    
+    /**
+     * Singletons should not be cloneable.
+     */
+    protected function __clone()
+    {
+    }
+    
+    /**
+     * Singletons should not be restorable from strings.
+     */
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize a singleton.");
+    }
 
     /**
      * Build up Request with prepared Auth and Endpoint.
