@@ -1,0 +1,21 @@
+{
+    "name": "hydrat/sellsy-client",
+    "description": "A lightweight client to query the Sellsy API V2",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas GEORGEL",
+            "email": "thomas@bluerocktel.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^7.0|^8.0",
+        "illuminate/http": "^7.0|^8.0",
+        "illuminate/contracts": "^7.0|^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "spatie/data-transfer-object": "^2.0"
+    }
+}
