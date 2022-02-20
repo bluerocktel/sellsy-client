@@ -13,7 +13,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * @version 1.0
  * @access public
  */
-class ContactSocials extends FlexibleDataTransferObject implements EntityContract
+class Socials extends FlexibleDataTransferObject implements EntityContract
 {
     /**
      * The contact twitter account link.

@@ -45,7 +45,7 @@ composer require hydrat-agency/sellsy-client
 ## Authenticate
 <a name="usage_auth"></a>
 
-This package only supports single user OAuth authentication.  
+This package only supports "Personnal" OAuth client credentials authentication.  
 Before calling any API class (or the Client helper), you MUST provide your credentials via the `Config` class :  
 
 ```php
@@ -79,21 +79,19 @@ use Hydrat\Sellsy\Api\ContactsApi;
 
 $contacts = new ContactsApi();
 
-$contacts->show($client_id)
+$contacts->show($contact_id);
 ```
 
-You may also use the client helper that holds all API namespaces using methods :  
-Using the Client helper : 
+You may also use the client helper that holds all API namespaces using methods.
+The downside is that you would lose the editor documentation.  
 
 ```php
 use Hydrat\Sellsy\Core\Client;
 
-$client = new Client();
-
-$client->contacts()->show($client_id)
+(new Client())->contacts()->show($contact_id);
 
 # Or statically :
-Client::contacts()->show($client_id)
+Client::contacts()->show($contact_id);
 ```
 
 ### Operations
@@ -113,7 +111,7 @@ This client is using the CRUD operations keywords to name API methods :
 | `search` | Search resources. |   
 
 
-Methods signatures :  
+Classic methods signatures :  
 
 ```php
 public function index(array $query = []): self;
@@ -123,7 +121,8 @@ public function update(Contact $contact, array $query = []): self;
 public function destroy(int $id): self;
 ```
 
-When querying the API, you get back an API object containing a response. If something goes wrong, a `RequestException` will be thrown. Most of the time, you only need to get the response entity sent back from the API : `$client->entity()`. But you can also make use of other available methods :  
+When querying the API, you get back an API object containing a response. If something goes wrong, a `RequestException` will be thrown.  
+Most of the time, you only need to get the response entity sent back from the API. However, you can also make use of other available methods :  
 
 ```php
 use Hydrat\Sellsy\Api\ContactsApi;
@@ -134,13 +133,13 @@ $api = $contacts->index();   # List
 $api = $contacts->get(123);  # Get
 
 $api->entity();      # Get single resource entity, when available
-$api->entities();    # Get resource entities, when available (for listing/search)
+$api->entities();    # Get resource entities collection, when available (for listing/search)
 $api->pagination();  # Get the pagination object, when available
 $api->json();        # Get raw json data from response, as associative array
 $api->response();    # Get the \Illuminate\Http\Client\Response object
 ``` 
 
-Under the hood, this client uses the [Laravel HTTP client](laravel.com/docs/7.x/http-client), which is a minimal wrapper around the [Guzzle HTTP client](https://docs.guzzlephp.org/en/stable/). By calling the `->response()` method, you get a Response containing a variety of methods that may be used to inspect the response :  
+Under the hood, this client uses the [Laravel HTTP client](laravel.com/docs/7.x/http-client), which is a minimal wrapper around the [Guzzle HTTP client](https://docs.guzzlephp.org/en/stable/). By calling the `response()` method, you get a `Response` object containing a variety of methods that may be used to inspect the response :  
 
 ```php
 $api->response()->body(): string;
@@ -155,18 +154,21 @@ $api->response()->header($header): string;
 $api->response()->headers(): array;
 ```
 
+This client make use of DTO objects (called `Entity`). Results from api are parsed into DTO objects, and the client expects DTO objects as argument when manipulating entities in the API.  
+Under the hood, we are using the [spatie/data-transfer-object](https://github.com/spatie/data-transfer-object) library, so make sure to consult their documentation if you're unsure about DTO objects.
+
 #### List a resource
 <a name="usage_query_list"></a>
 
-To list a resource, we use the `index()` method. This method accept query parameters as argument.  
+To list a resource, we use the `index()` method. This method accept query parameters as only argument.  
 
 ```php
 $contacts = new ContactsApi();
 
 $index = $contacts->index();
 
-$index->entities();    // The api entities
-$index->pagination();  // The pagination object
+$index->entities();    // The API entities
+$index->pagination();  // The pagination DTO
 ```
 
 #### Show a resource
@@ -242,9 +244,6 @@ When specifing `$embed` entities, the client will automatically parse them into 
 ```php
 Hydrat\Sellsy\Entities\Contact^ {
   +id: 35520506
-  +civility: "ms"
-  +first_name: "Amélie"
-  +last_name: "PETIT"
   +email: "contact+atest@sellsy.com"
   [...]
   +invoicing_address: Hydrat\Sellsy\Entities\Address^ {
@@ -271,7 +270,7 @@ Hydrat\Sellsy\Entities\Contact^ {
 #### Create a resource
 <a name="usage_query_create"></a>
 
-When creating a resource, the `store()` method should be called. This method expect the entity object as first parameter :  
+When creating a resource, the `store()` method should be called. This method expect the entity object as first argument and `$query` parameters as second argument :  
 
 ```php
 use Hydrat\Sellsy\Entities\Contact;
@@ -295,14 +294,13 @@ $contacts->store(new Contact([
 ]));
 ```
 
-The API returns the entity, and therefore you can chain `->entity()` to retreive the created entity.  
-The `store()` method accept a `$query` parameters variable as second argument.  
+The API returns the entity, therefore you can chain `->entity()` to retreive the created entity. 
 
 
 #### Update a resource
 <a name="usage_query_update"></a>
 
-When updating a resource, the `update()` method should be called. This method expect the Contact entity to be updated :  
+When updating a resource, the `update()` method should be called. This method expect the Contact entity to be updated as first parameter and `$query` parameters as second argument :  
 
 ```php
 use Hydrat\Sellsy\Entities\Contact;
@@ -317,21 +315,16 @@ $contacts->update(new Contact([
 ]));
 ```
 
-The API returns the entity, and therefore you can chain `->entity()` to retreive the created entity. 
-The `store()` method accept a `$query` parameters variable as second argument.  
+The API returns the entity, therefore you can chain `->entity()` to retreive the created entity. 
 
 #### Delete a resource
 <a name="usage_query_delete"></a>
 
-When deleting a resource, the `destroy()` method should be called. This method expect the Contact ID to be deleted :  
+When deleting a resource, the `destroy()` method should be called. This method only expect the resource id to be deleted :  
 
 ```php
-$contacts->delete(35536947)->json();
+$contacts->delete(123)->json();
 ```
-
-This client return DTO objects, and expect DTO objects as argument when updating or creating entities in the API.
-Under the hood, we are using the [spatie/data-transfer-object](https://github.com/spatie/data-transfer-object) library, so make sure to consult their ducumentation to use DTO Entities objects properly.
-
 
 ## Contribute
 <a name="contribute"></a>

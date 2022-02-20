@@ -2,7 +2,7 @@
 
 namespace Hydrat\Sellsy\Collections;
 
-use Hydrat\Sellsy\Entities\Contact;
+use Hydrat\Sellsy\Entities\Company;
 use Hydrat\Sellsy\Contracts\EntityCollectionContract;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 
@@ -14,12 +14,12 @@ use Spatie\DataTransferObject\DataTransferObjectCollection;
  * @version 1.0
  * @access public
  *
- * @method \Hydrat\Sellsy\Entities\Contact current
+ * @method \Hydrat\Sellsy\Entities\Company current
  */
-class ContactCollection extends DataTransferObjectCollection implements EntityCollectionContract
+class CompanyCollection extends DataTransferObjectCollection implements EntityCollectionContract
 {
-    public static function create(array $data): ContactCollection
+    public static function create(array $data): CompanyCollection
     {
-        return new static(Contact::arrayOf($data));
+        return new static(Company::arrayOf($data));
     }
 }

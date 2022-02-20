@@ -74,8 +74,22 @@ abstract class AbstractApi
     {
         $data = $this->response->json();
 
+        if (isset($data['data'])) {
+            $data['data'] = array_map([$this, 'parseEmbed'], $data['data']);
+        }
+
+        return $this->parseEmbed($data);
+    }
+    
+    /**
+     * Parse embed fields.
+     *
+     * @return array
+     */
+    protected function parseEmbed(array $data): ?array
+    {
         if (isset($data['_embed'])) {
-            $data = array_merge($data, array_merge($data, $data['_embed']));
+            $data = array_merge($data, $data['_embed']);
             unset($data['_embed']);
         }
 
@@ -101,7 +115,7 @@ abstract class AbstractApi
     {
         $data = $this->json();
 
-        return isset($data['data']) ? new $this->collection($data['data']) : null;
+        return isset($data['data']) ? $this->collection::create($data['data']) : null;
     }
     
     /**

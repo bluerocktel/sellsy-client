@@ -32,6 +32,8 @@ class Pagination extends FlexibleDataTransferObject implements EntityContract
 
     /**
      * The offset.
+     *
+     * @var int|string
      */
-    public int $offset;
+    public $offset;
 }

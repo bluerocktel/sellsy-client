@@ -3,8 +3,11 @@
 namespace Hydrat\Sellsy\Entities;
 
 use Hydrat\Sellsy\Entities\Address;
-use Hydrat\Sellsy\Entities\ContactSocials;
+use Hydrat\Sellsy\Entities\Socials;
+use Hydrat\Sellsy\Entities\Attributes\Acl;
 use Hydrat\Sellsy\Contracts\EntityContract;
+use Hydrat\Sellsy\Entities\Attributes\Addresses;
+use Hydrat\Sellsy\Entities\Attributes\ContactInfos;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**
@@ -17,6 +20,10 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  */
 class Contact extends FlexibleDataTransferObject implements EntityContract
 {
+    use Acl,
+        Addresses,
+        ContactInfos;
+
     /**
      * <READONLY> Contact ID from Sellsy.
      */
@@ -37,31 +44,6 @@ class Contact extends FlexibleDataTransferObject implements EntityContract
      * Contact name.
      */
     public ?string $last_name;
-
-    /**
-     * Contact email.
-     */
-    public ?string $email;
-    
-    /**
-     * Contact website.
-     */
-    public ?string $website;
-    
-    /**
-     * Contact phone number.
-     */
-    public ?string $phone_number;
-    
-    /**
-     * Contact mobile number.
-     */
-    public ?string $mobile_number;
-    
-    /**
-     * Contact fax number.
-     */
-    public ?string $fax_number;
     
     /**
      * Contact job.
@@ -84,12 +66,12 @@ class Contact extends FlexibleDataTransferObject implements EntityContract
     public string $note = '';
     
     /**
-     * Associative array with contact socials.
+     * Contact socials.
      */
-    public ?ContactSocials $social;
+    public ?Socials $social;
     
     /**
-     * Associative array synchronisation to turn on or off.
+     * Contact synchronisation to turn on or off.
      */
     public ?ContactSync $sync;
     
@@ -99,32 +81,12 @@ class Contact extends FlexibleDataTransferObject implements EntityContract
     public bool $is_archived = false;
     
     /**
-     * <READONLY> Contact invoicing address ID from Sellsy.
-     */
-    public ?int $invoicing_address_id;
-    
-    /**
-     * <READONLY> Contact delivery address ID from Sellsy.
-     */
-    public ?int $delivery_address_id;
-
-    /**
-     * <READONLY> Contact invoicing address.
-     */
-    public ?Address $invoicing_address;
-    
-    /**
-     * <READONLY> Contact delivery address.
-     */
-    public ?Address $delivery_address;
-    
-    /**
      * <READONLY> Contact creates date from Sellsy.
      */
     public ?string $created;
     
     /**
-     * <READONLY> Contact updated date from Sellsy.
+     * <READONLY> Contact owner from Sellsy.
      */
     public ?array $owner;
 }
