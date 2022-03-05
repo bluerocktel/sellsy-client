@@ -49,9 +49,9 @@ This package only supports "Personnal" OAuth client credentials authentication.
 Before calling any API class (or the Client helper), you MUST provide your credentials via the `Config` class :  
 
 ```php
-use Hydrat\Sellsy\Api\ContactsApi;
-use Hydrat\Sellsy\Core\Client;
-use Hydrat\Sellsy\Core\Config;
+use Bluerock\Sellsy\Api\ContactsApi;
+use Bluerock\Sellsy\Core\Client;
+use Bluerock\Sellsy\Core\Config;
 
 $config = Config::getInstance();
 
@@ -75,7 +75,7 @@ $client->contacts()->index()->json(); // List contacts from API.
 The easiest way to start querying the API is to initialize the corresponding class and call the needed method(s) :  
 
 ```php
-use Hydrat\Sellsy\Api\ContactsApi;
+use Bluerock\Sellsy\Api\ContactsApi;
 
 $contacts = new ContactsApi();
 
@@ -86,7 +86,7 @@ You may also use the client helper that holds all API namespaces using methods.
 The downside is that you would lose the editor documentation.  
 
 ```php
-use Hydrat\Sellsy\Core\Client;
+use Bluerock\Sellsy\Core\Client;
 
 (new Client())->contacts()->show($contact_id);
 
@@ -125,7 +125,7 @@ When querying the API, you get back an API object containing a response. If some
 Most of the time, you only need to get the response entity sent back from the API. However, you can also make use of other available methods :  
 
 ```php
-use Hydrat\Sellsy\Api\ContactsApi;
+use Bluerock\Sellsy\Api\ContactsApi;
 
 $contacts = new ContactsApi();
 
@@ -182,10 +182,10 @@ $contacts = new ContactsApi();
 $contacts->show(123)->entity();
 ```
 
-This returns a `Hydrat\Sellsy\Entities\Contact` instance :  
+This returns a `Bluerock\Sellsy\Entities\Contact` instance :  
 
 ```php
-Hydrat\Sellsy\Entities\Contact^ {
+Bluerock\Sellsy\Entities\Contact^ {
   +id: 35520506
   +civility: "ms"
   +first_name: "Amélie"
@@ -199,13 +199,13 @@ Hydrat\Sellsy\Entities\Contact^ {
   +birth_date: null
   +avatar: null
   +note: ""
-  +social: Hydrat\Sellsy\Entities\ContactSocials^ {
+  +social: Bluerock\Sellsy\Entities\ContactSocials^ {
     +twitter: null
     +facebook: null
     +linkedin: null
     +viadeo: null
   }
-  +sync: Hydrat\Sellsy\Entities\ContactSync^ {
+  +sync: Bluerock\Sellsy\Entities\ContactSync^ {
     +mailchimp: true
     +mailjet: true
     +simplemail: true
@@ -242,11 +242,11 @@ $contacts->show(123, $query)->entity();
 When specifing `$embed` entities, the client will automatically parse them into subsequent entity classes :  
 
 ```php
-Hydrat\Sellsy\Entities\Contact^ {
+Bluerock\Sellsy\Entities\Contact^ {
   +id: 35520506
   +email: "contact+atest@sellsy.com"
   [...]
-  +invoicing_address: Hydrat\Sellsy\Entities\Address^ {
+  +invoicing_address: Bluerock\Sellsy\Entities\Address^ {
     +id: 128934588
     +name: "Domicile"
     +address_line_1: "34 Rue du moulin"
@@ -259,7 +259,7 @@ Hydrat\Sellsy\Entities\Contact^ {
     +country_code: "FR"
     +is_invoicing_address: true
     +is_delivery_address: false
-    +geocode: Hydrat\Sellsy\Entities\Geocode^ {
+    +geocode: Bluerock\Sellsy\Entities\Geocode^ {
       +lat: 42.1040
       +lng: 6.43010
     }
@@ -273,9 +273,9 @@ Hydrat\Sellsy\Entities\Contact^ {
 When creating a resource, the `store()` method should be called. This method expect the entity object as first argument and `$query` parameters as second argument :  
 
 ```php
-use Hydrat\Sellsy\Entities\Contact;
-use Hydrat\Sellsy\Entities\ContactSync;
-use Hydrat\Sellsy\Entities\ContactSocials;
+use Bluerock\Sellsy\Entities\Contact;
+use Bluerock\Sellsy\Entities\ContactSync;
+use Bluerock\Sellsy\Entities\ContactSocials;
 
 $contacts = new ContactsApi();
 
@@ -303,7 +303,7 @@ The API returns the entity, therefore you can chain `->entity()` to retreive the
 When updating a resource, the `update()` method should be called. This method expect the Contact entity to be updated as first parameter and `$query` parameters as second argument :  
 
 ```php
-use Hydrat\Sellsy\Entities\Contact;
+use Bluerock\Sellsy\Entities\Contact;
 
 $contacts = new ContactsApi();
 
@@ -338,6 +338,7 @@ If you find any security issue, please contact me at thomas@hydrat.agency instea
 ## Credits
 <a name="credits"></a>
 
+- [BluerockTel](https://bluerocktel.com)
 - [Thomas Georgel](https://github.com/tgeorgel)
 - [All Contributors](../../contributors)
 

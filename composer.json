@@ -1,6 +1,6 @@
 {
-    "name": "hydrat-agency/sellsy-client",
-    "description": "A lightweight client to query the Sellsy API V2",
+    "name": "bluerock/sellsy-client",
+    "description": "A lightweight PHP client to query the Sellsy API V2",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Hydrat\\Sellsy\\": "src/"
+            "Bluerock\\Sellsy\\": "src/"
         }
     }
 }

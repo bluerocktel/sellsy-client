@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Core;
+namespace Bluerock\Sellsy\Core;
 
-use Hydrat\Sellsy\Core\Request;
-use Hydrat\Sellsy\Exceptions\InvalidCredentialsException;
+use Bluerock\Sellsy\Core\Request;
+use Bluerock\Sellsy\Exceptions\InvalidCredentialsException;
 
 /**
  * The API client used for authentication.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Hydrat\Sellsy\Core;
+namespace Bluerock\Sellsy\Core;
 
-use Hydrat\Sellsy\Exceptions\DomainException;
+use Bluerock\Sellsy\Exceptions\DomainException;
 
 /**
  * A client instance retreiving corresponding API class fluently.
@@ -32,7 +32,7 @@ class Client
      */
     public static function __callStatic(string $name, array $arguments)
     {
-        $class = 'Hydrat\Sellsy\Api\\' . ucfirst($name) . 'Api';
+        $class = 'Bluerock\Sellsy\Api\\' . ucfirst($name) . 'Api';
 
         if (!class_exists($class)) {
             throw new DomainException("Error, the api '{$name}' has been not found (looking for class `{$class}`.");

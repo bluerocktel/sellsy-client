@@ -1,8 +1,8 @@
 <?php
 
-namespace Hydrat\Sellsy\Entities;
+namespace Bluerock\Sellsy\Entities;
 
-use Hydrat\Sellsy\Contracts\EntityContract;
+use Bluerock\Sellsy\Contracts\EntityContract;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**

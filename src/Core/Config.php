@@ -1,6 +1,6 @@
 <?php
 
-namespace Hydrat\Sellsy\Core;
+namespace Bluerock\Sellsy\Core;
 
 use Illuminate\Support\Arr;
 

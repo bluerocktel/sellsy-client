@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Core;
+namespace Bluerock\Sellsy\Core;
 
-use Hydrat\Sellsy\Core\Config;
-use Hydrat\Sellsy\Core\Request;
+use Bluerock\Sellsy\Core\Config;
+use Bluerock\Sellsy\Core\Request;
 
 /**
  * The single connection instance, issuing prepared & authenticated requests.

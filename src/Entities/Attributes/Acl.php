@@ -1,6 +1,6 @@
 <?php
 
-namespace Hydrat\Sellsy\Entities\Attributes;
+namespace Bluerock\Sellsy\Entities\Attributes;
 
 /**
  * ACL Attributes.

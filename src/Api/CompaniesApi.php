@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Api;
+namespace Bluerock\Sellsy\Api;
 
-use Hydrat\Sellsy\Entities\Company;
-use Hydrat\Sellsy\Collections\CompanyCollection;
+use Bluerock\Sellsy\Entities\Company;
+use Bluerock\Sellsy\Collections\CompanyCollection;
 
 /**
  * The API client for the `companies` namespace.

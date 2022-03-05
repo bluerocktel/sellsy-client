@@ -1,12 +1,12 @@
 <?php
 
-namespace Hydrat\Sellsy\Api;
+namespace Bluerock\Sellsy\Api;
 
-use Hydrat\Sellsy\Core\Connection;
+use Bluerock\Sellsy\Core\Connection;
 use Illuminate\Http\Client\Response;
-use Hydrat\Sellsy\Entities\Pagination;
-use Hydrat\Sellsy\Contracts\EntityContract;
-use Hydrat\Sellsy\Contracts\EntityCollectionContract;
+use Bluerock\Sellsy\Entities\Pagination;
+use Bluerock\Sellsy\Contracts\EntityContract;
+use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 
 /**
  * The default API client class to extend.
@@ -22,7 +22,7 @@ abstract class AbstractApi
     /**
      * The Connection instance used to generate API requests.
      *
-     * @var \Hydrat\Sellsy\Core\Connection
+     * @var \Bluerock\Sellsy\Core\Connection
      */
     protected ?Connection $connection;
 
@@ -36,14 +36,14 @@ abstract class AbstractApi
     /**
      * The related entity.
      *
-     * @var string \Hydrat\Sellsy\Contracts\EntityContract
+     * @var string \Bluerock\Sellsy\Contracts\EntityContract
      */
     protected string $entity;
 
     /**
      * The related entity collection.
      *
-     * @var string \Hydrat\Sellsy\Contracts\EntityCollectionContract
+     * @var string \Bluerock\Sellsy\Contracts\EntityCollectionContract
      */
     protected string $collection;
 

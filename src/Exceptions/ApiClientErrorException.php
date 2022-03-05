@@ -1,6 +1,6 @@
 <?php
 
-namespace Hydrat\Sellsy\Exceptions;
+namespace Bluerock\Sellsy\Exceptions;
 
 use Exception;
 

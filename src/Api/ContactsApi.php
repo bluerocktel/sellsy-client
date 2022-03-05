@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Api;
+namespace Bluerock\Sellsy\Api;
 
-use Hydrat\Sellsy\Entities\Contact;
-use Hydrat\Sellsy\Collections\ContactCollection;
+use Bluerock\Sellsy\Entities\Contact;
+use Bluerock\Sellsy\Collections\ContactCollection;
 
 /**
  * The API client for the `contacts` namespace.

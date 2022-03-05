@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Collections;
+namespace Bluerock\Sellsy\Collections;
 
-use Hydrat\Sellsy\Entities\Company;
-use Hydrat\Sellsy\Contracts\EntityCollectionContract;
+use Bluerock\Sellsy\Entities\Company;
+use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 
 /**
@@ -14,7 +14,7 @@ use Spatie\DataTransferObject\DataTransferObjectCollection;
  * @version 1.0
  * @access public
  *
- * @method \Hydrat\Sellsy\Entities\Company current
+ * @method \Bluerock\Sellsy\Entities\Company current
  */
 class CompanyCollection extends DataTransferObjectCollection implements EntityCollectionContract
 {

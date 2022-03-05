@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Collections;
+namespace Bluerock\Sellsy\Collections;
 
-use Hydrat\Sellsy\Entities\Tax;
-use Hydrat\Sellsy\Contracts\EntityCollectionContract;
+use Bluerock\Sellsy\Entities\Tax;
+use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 
 /**
@@ -14,7 +14,7 @@ use Spatie\DataTransferObject\DataTransferObjectCollection;
  * @version 1.0
  * @access public
  *
- * @method \Hydrat\Sellsy\Entities\Tax current
+ * @method \Bluerock\Sellsy\Entities\Tax current
  */
 class TaxCollection extends DataTransferObjectCollection implements EntityCollectionContract
 {

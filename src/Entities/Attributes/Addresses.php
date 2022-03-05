@@ -1,8 +1,8 @@
 <?php
 
-namespace Hydrat\Sellsy\Entities\Attributes;
+namespace Bluerock\Sellsy\Entities\Attributes;
 
-use Hydrat\Sellsy\Entities\Address;
+use Bluerock\Sellsy\Entities\Address;
 
 /**
  * Addresses Attributes.

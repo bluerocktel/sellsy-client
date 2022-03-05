@@ -1,14 +1,14 @@
 <?php
 
-namespace Hydrat\Sellsy\Entities;
+namespace Bluerock\Sellsy\Entities;
 
-use Hydrat\Sellsy\Entities\Address;
-use Hydrat\Sellsy\Entities\Contact;
-use Hydrat\Sellsy\Entities\Attributes\Acl;
-use Hydrat\Sellsy\Contracts\EntityContract;
-use Hydrat\Sellsy\Entities\Attributes\Addresses;
-use Hydrat\Sellsy\Entities\Attributes\Statistics;
-use Hydrat\Sellsy\Entities\Attributes\ContactInfos;
+use Bluerock\Sellsy\Entities\Address;
+use Bluerock\Sellsy\Entities\Contact;
+use Bluerock\Sellsy\Entities\Attributes\Acl;
+use Bluerock\Sellsy\Contracts\EntityContract;
+use Bluerock\Sellsy\Entities\Attributes\Addresses;
+use Bluerock\Sellsy\Entities\Attributes\Statistics;
+use Bluerock\Sellsy\Entities\Attributes\ContactInfos;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**

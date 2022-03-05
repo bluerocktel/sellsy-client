@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Entities;
+namespace Bluerock\Sellsy\Entities;
 
-use Hydrat\Sellsy\Entities\Geocode;
-use Hydrat\Sellsy\Contracts\EntityContract;
+use Bluerock\Sellsy\Entities\Geocode;
+use Bluerock\Sellsy\Contracts\EntityContract;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**

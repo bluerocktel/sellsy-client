@@ -1,9 +1,9 @@
 <?php
 
-namespace Hydrat\Sellsy\Collections;
+namespace Bluerock\Sellsy\Collections;
 
-use Hydrat\Sellsy\Entities\Contact;
-use Hydrat\Sellsy\Contracts\EntityCollectionContract;
+use Bluerock\Sellsy\Entities\Contact;
+use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 
 /**
@@ -14,7 +14,7 @@ use Spatie\DataTransferObject\DataTransferObjectCollection;
  * @version 1.0
  * @access public
  *
- * @method \Hydrat\Sellsy\Entities\Contact current
+ * @method \Bluerock\Sellsy\Entities\Contact current
  */
 class ContactCollection extends DataTransferObjectCollection implements EntityCollectionContract
 {

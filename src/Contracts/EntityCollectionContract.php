@@ -1,6 +1,6 @@
 <?php
 
-namespace Hydrat\Sellsy\Contracts;
+namespace Bluerock\Sellsy\Contracts;
 
 /**
  * The Entity contract.
