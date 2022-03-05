@@ -36,7 +36,7 @@ This library requires PHP >= `7.4`.
 Grab the library using composer :  
 
 ```
-composer require hydrat-agency/sellsy-client
+composer require bluerock/sellsy-client
 ```
 
 ## Usage
