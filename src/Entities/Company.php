@@ -95,7 +95,7 @@ class Company extends FlexibleDataTransferObject implements EntityContract
     /**
      * Company business segment.
      */
-    public ?int $business_segment;
+    public ?array $business_segment;
     
     /**
      * Number of employees of company.
