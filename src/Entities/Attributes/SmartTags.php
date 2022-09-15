@@ -15,7 +15,7 @@ trait SmartTags
     /**
      * Entity Smart tags.
      *
-     * \Bluerock\Sellsy\Entities\SmartTag[]
+     * @var \Bluerock\Sellsy\Entities\SmartTag[]|null
      */
     public $smart_tags;
 }
