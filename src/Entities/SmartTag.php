@@ -6,22 +6,22 @@ use Bluerock\Sellsy\Contracts\EntityContract;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**
- * The Geocode Entity.
+ * The SmartTag Entity.
  *
  * @package sellsy-connector
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */
-class Geocode extends FlexibleDataTransferObject implements EntityContract
+class SmartTag extends FlexibleDataTransferObject implements EntityContract
 {
     /**
-     * Geocode latitude.
+     * <READONLY> SmartTag ID from Sellsy.
      */
-    public ?float $lat;
-
+    public ?int $id;
+    
     /**
-     * Geocode longitude.
+     * SmartTag value (label).
      */
-    public ?float $lng;
+    public string $value;
 }

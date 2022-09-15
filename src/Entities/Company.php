@@ -2,29 +2,26 @@
 
 namespace Bluerock\Sellsy\Entities;
 
-use Bluerock\Sellsy\Entities\Address;
 use Bluerock\Sellsy\Entities\Contact;
-use Bluerock\Sellsy\Entities\Attributes\Acl;
+use Bluerock\Sellsy\Entities\Attributes;
 use Bluerock\Sellsy\Contracts\EntityContract;
-use Bluerock\Sellsy\Entities\Attributes\Addresses;
-use Bluerock\Sellsy\Entities\Attributes\Statistics;
-use Bluerock\Sellsy\Entities\Attributes\ContactInfos;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**
  * The Company Entity.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */
 class Company extends FlexibleDataTransferObject implements EntityContract
 {
-    use Acl,
-        Statistics,
-        Addresses,
-        ContactInfos;
+    use Attributes\Acl,
+        Attributes\Statistics,
+        Attributes\Addresses,
+        Attributes\ContactInfos,
+        Attributes\SmartTags;
     
     /**
      * <READONLY> Company ID from Sellsy.

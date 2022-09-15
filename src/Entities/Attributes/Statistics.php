@@ -6,34 +6,34 @@ namespace Bluerock\Sellsy\Entities\Attributes;
  * Statistics Attributes.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */
 trait Statistics
 {
     /**
-     * <READONLY> Company opportunities count.
+     * <READONLY> Entity opportunities count.
      */
     public ?int $opportunities;
     
     /**
-     * <READONLY> Company estimates count.
+     * <READONLY> Entity estimates count.
      */
     public ?int $estimates;
     
     /**
-     * <READONLY> Company invoices count.
+     * <READONLY> Entity invoices count.
      */
     public ?int $invoices;
     
     /**
-     * <READONLY> Company orders count.
+     * <READONLY> Entity orders count.
      */
     public ?int $orders;
     
     /**
-     * <READONLY> Company deliveries count.
+     * <READONLY> Entity deliveries count.
      */
     public ?int $deliveries;
 }

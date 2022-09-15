@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Exceptions\InvalidCredentialsException;
  * The API client used for authentication.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

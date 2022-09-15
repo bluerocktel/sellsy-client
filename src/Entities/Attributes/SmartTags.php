@@ -2,8 +2,6 @@
 
 namespace Bluerock\Sellsy\Entities\Attributes;
 
-use Bluerock\Sellsy\Entities;
-
 /**
  * ACL Attributes.
  *
@@ -12,10 +10,12 @@ use Bluerock\Sellsy\Entities;
  * @version 1.0
  * @access public
  */
-trait Acl
+trait SmartTags
 {
     /**
-     * <READONLY> Entity ACL.
+     * Entity Smart tags.
+     *
+     * \Bluerock\Sellsy\Entities\SmartTag[]
      */
-    public ?Entities\Acl $acl;
+    public $smart_tags;
 }

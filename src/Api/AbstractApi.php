@@ -13,7 +13,7 @@ use Bluerock\Sellsy\Contracts\EntityCollectionContract;
  * Use $connection->request($endpoint) to create a new authenticated request.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

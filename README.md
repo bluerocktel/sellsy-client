@@ -21,8 +21,8 @@
 - [License](#license)
 
 
-⚠️ This client helps you query the Sellsy API V2.  
-If you're looking for a client for the API V1, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client) instead.
+⚠️ Warning: This client helps you query the Sellsy API V2 ONLY.  
+If you're looking to query V1, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client) instead.
 
 ## Introduction
 <a name="introduction"></a>
@@ -31,9 +31,9 @@ If you're looking for a client for the API V1, checkout [TeknooSoftware/sellsy-c
 ## Installation
 <a name="installation"></a>
 
-This library requires PHP >= `7.4`.  
+This library requires PHP `>= 7.4`.  
 
-Grab the library using composer :  
+Get the library using composer :  
 
 ```
 composer require bluerock/sellsy-client
@@ -45,11 +45,11 @@ composer require bluerock/sellsy-client
 ## Authenticate
 <a name="usage_auth"></a>
 
-This package only supports "Personnal" OAuth client credentials authentication.  
+> ℹ For now, this package only supports "Personnal" OAuth client credentials authentication.  
+
 Before calling any API class (or the Client helper), you MUST provide your credentials via the `Config` class :  
 
 ```php
-use Bluerock\Sellsy\Api\ContactsApi;
 use Bluerock\Sellsy\Core\Client;
 use Bluerock\Sellsy\Core\Config;
 
@@ -60,44 +60,42 @@ $config->set('url', 'https://api.sellsy.com/v2/') // optionnal, this is the defa
        ->set('client_secret', 'av8v94jx0ildsjje50sm9x1hnmjsg27bnqyryc0zgbmtxxmzpjzlw2vnj9aockwe');
 
 $client = new Client();
-
 $client->contacts()->index()->json(); // List contacts from API.
 ```
 
 [Learn more](https://api.sellsy.com/doc/v2/#section/Authentication) about Sellsy API v2 credentials.
 
-## Query the API
+## Querying the API
 <a name="usage_query"></a>
 
 ### The basics
 <a name="usage_query_basic"></a>
 
-The easiest way to start querying the API is to initialize the corresponding class and call the needed method(s) :  
+The easier way to start querying the API is by initializing the corresponding domain class :  
 
 ```php
 use Bluerock\Sellsy\Api\ContactsApi;
 
 $contacts = new ContactsApi();
-
+$contacts->index();
 $contacts->show($contact_id);
 ```
 
-You may also use the client helper that holds all API namespaces using methods.
-The downside is that you would lose the editor documentation.  
+You may also use the Client helper that holds all API namespaces using methods.    
 
 ```php
 use Bluerock\Sellsy\Core\Client;
 
-(new Client())->contacts()->show($contact_id);
+# With instance...
+$client = new Client();
+$client->contacts()->show($contact_id);
 
-# Or statically :
+# ... or statically.
 Client::contacts()->show($contact_id);
 ```
 
-### Operations
+### Operations & methods
 <a name="usage_query_operations"></a>
-
-ℹ️ To illustrate this part of the documentation, we will use the [ContactsApi](https://api.sellsy.com/doc/v2/#tag/Contacts) endpoint.
 
 This client is using the CRUD operations keywords to name API methods :  
 
@@ -116,13 +114,14 @@ Classic methods signatures :
 ```php
 public function index(array $query = []): self;
 public function show(string $id, array $query = []): self;
-public function store(Contact $contact, array $query = []): self;
-public function update(Contact $contact, array $query = []): self;
+public function store(\Bluerock\Sellsy\Entities\Contact $contact, array $query = []): self;
+public function update(\Bluerock\Sellsy\Entities\Contact $contact, array $query = []): self;
 public function destroy(int $id): self;
 ```
 
-When querying the API, you get back an API object containing a response. If something goes wrong, a `RequestException` will be thrown.  
-Most of the time, you only need to get the response entity sent back from the API. However, you can also make use of other available methods :  
+When issuing a request using one of these methods, you'll get back the api class object containing a response. If something goes wrong, a `RequestException` will be thrown.  
+
+Most of the time, you only need to retreive the instancied entity using `->entity()`method. However, you may also use one of other available methods :  
 
 ```php
 use Bluerock\Sellsy\Api\ContactsApi;
@@ -160,7 +159,7 @@ Under the hood, we are using the [spatie/data-transfer-object](https://github.co
 #### List a resource
 <a name="usage_query_list"></a>
 
-To list a resource, we use the `index()` method. This method accept query parameters as only argument.  
+To list a resource, use the `index()` method. This method accept query parameters as only argument.  
 
 ```php
 $contacts = new ContactsApi();
@@ -174,7 +173,7 @@ $index->pagination();  // The pagination DTO
 #### Show a resource
 <a name="usage_query_show"></a>
 
-To show a resource, we use the `show()` method. This method accept the resource id as first parameter : 
+To show a resource, use the `show()` method. This method accept the resource id as first parameter : 
 
 ```php
 $contacts = new ContactsApi();

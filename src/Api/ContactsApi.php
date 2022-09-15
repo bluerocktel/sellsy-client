@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Collections\ContactCollection;
  * The API client for the `contacts` namespace.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

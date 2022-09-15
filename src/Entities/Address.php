@@ -10,7 +10,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * The Address Entity.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

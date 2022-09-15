@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Collections\CompanyCollection;
  * The API client for the `companies` namespace.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

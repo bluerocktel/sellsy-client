@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Core\Request;
  * The single connection instance, issuing prepared & authenticated requests.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

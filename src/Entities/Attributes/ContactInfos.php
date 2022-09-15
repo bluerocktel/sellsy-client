@@ -6,7 +6,7 @@ namespace Bluerock\Sellsy\Entities\Attributes;
  * ContactInfos Attributes.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */

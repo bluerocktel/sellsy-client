@@ -2,27 +2,25 @@
 
 namespace Bluerock\Sellsy\Entities;
 
-use Bluerock\Sellsy\Entities\Address;
 use Bluerock\Sellsy\Entities\Socials;
-use Bluerock\Sellsy\Entities\Attributes\Acl;
 use Bluerock\Sellsy\Contracts\EntityContract;
-use Bluerock\Sellsy\Entities\Attributes\Addresses;
-use Bluerock\Sellsy\Entities\Attributes\ContactInfos;
+use Bluerock\Sellsy\Entities\Attributes;
 use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 /**
  * The Contact Entity.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */
 class Contact extends FlexibleDataTransferObject implements EntityContract
 {
-    use Acl,
-        Addresses,
-        ContactInfos;
+    use Attributes\Acl,
+        Attributes\Addresses,
+        Attributes\ContactInfos,
+        Attributes\SmartTags;
 
     /**
      * <READONLY> Contact ID from Sellsy.

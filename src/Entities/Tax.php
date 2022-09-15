@@ -9,7 +9,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * The Tax Entity.
  *
  * @package sellsy-connector
- * @author Thomas <thomas@hydrat.agency>
+ * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
  */
@@ -22,7 +22,7 @@ class Tax extends FlexibleDataTransferObject implements EntityContract
     
     /**
      * Tax rate in percentage.
-     * 
+     *
      * @var int|float|null
      */
     public $rate;

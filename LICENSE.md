@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) Thomas Georgel <thomas@hydrat.agency>
+Copyright (c) Thomas Georgel <thomas@bluerocktel.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
