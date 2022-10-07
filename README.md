@@ -1,8 +1,8 @@
 # Sellsy API V2 PHP client
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/hydrat-agency/sellsy-client.svg?style=flat-square)](https://packagist.org/packages/hydrat-agency/sellsy-client)
-[![Total Downloads](https://img.shields.io/packagist/dt/hydrat-agency/sellsy-client.svg?style=flat-square)](https://packagist.org/packages/hydrat-agency/sellsy-client)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/bluerock/sellsy-client.svg?style=flat-square)](https://packagist.org/packages/bluerock/sellsy-client)
+[![Total Downloads](https://img.shields.io/packagist/dt/bluerock/sellsy-client.svg?style=flat-square)](https://packagist.org/packages/bluerock/sellsy-client)
 
 - [Introduction](#introduction)
 - [Installation](#installation)
@@ -11,32 +11,125 @@
   - [Query the API](#usage_query)
     - [The basics](#usage_query_basic)
     - [Operations](#usage_query_operations)
-    - [Index a resource](#usage_query_index)
-    - [Show a resource](#usage_query_show)
-    - [Create a resource](#usage_query_create)
-    - [Update a resource](#usage_query_update)
-    - [Delete a resource](#usage_query_delete)
+  - [Examples](#usage_examples)
+    - [Index](#usage_query_index)
+    - [Show](#usage_query_show)
+    - [Create](#usage_query_create)
+    - [Update](#usage_query_update)
+    - [Delete](#usage_query_delete)
 - [Contribute](#contribute)
 - [Credits](#credits)
 - [License](#license)
 
 
-⚠️ Warning: This client helps you query the Sellsy API V2 ONLY.  
-If you're looking to query V1, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client) instead.
-
 ## Introduction
 <a name="introduction"></a>
 
-// TODO
+> This package supports the Sellsy API at version 2. If you're looking for a client to query the version 1, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client).  
+
+This client is a PHP implementation of the Sellsy API. It's a wrapper around the Guzzle HTTP client. It's designed to be as simple as possible to use.
+
+- You may read...  
+
+```php
+$units   = new Bluerock\Sellsy\Api\UnitsApi();
+$results = $units->index()->entities();
+```
+
+- You may search...  
+
+```php
+$units = new Bluerock\Sellsy\Api\CompaniesApi();
+$results = $units->search([
+  'email'       => 'contact@example.com',
+  'type'        => 'prospect',
+  'is_archived' => false,
+])->entities();
+```
+
+- And also write.  
+
+```php
+use Bluerock\Sellsy\Entities;
+
+$contacts = new Bluerock\Sellsy\Entities\Contact();
+$contacts->store(new Entities\Contact([
+    'civility'   => 'mr',
+    'first_name' => 'Jean',
+    'last_name'  => 'MOULIN',
+    'email'      => 'user@example.com',
+    'sync'       => new Entities\ContactSync(),
+]));
+```
+
+The package is still a work in progress. If you're missing some endpoint implementation, do not hesitate to contribute or open an issue on this repo. You'll find below an array of the endpoints implementation status.
+
+### Client's Endpoints status
+
+✅ = Fully implemented  
+🆚 = Partially implemented  
+🅾️ = Not yet implemented  
+
+| Category | Endpoint | Status |   
+| :--------: | :------: | :---: |  
+| **Core** | Batch | 🅾️ |  
+| **Core** | API Management | 🅾️ |  
+| **Core** | Webhooks | 🅾️ |  
+| **Core** | Listings | 🅾️ |  
+| **Core** | Activities | 🅾️ |  
+| **Core** | Custom Activities | 🅾️ |  
+| **Core** | Files | 🅾️ |  
+| **Prospection** | Companies | ✅ |  
+| **Prospection** | Contacts | ✅ |  
+| **Prospection** | Individuals | 🅾️ |  
+| **Prospection** | Opportunities | 🅾️ |  
+| **Prospection** | Calendar | 🅾️ |  
+| **Prospection** | Emails | 🅾️ |  
+| **Prospection** | Comments | 🅾️ |  
+| **Prospection** | Tasks | 🅾️ |  
+| **Prospection** | PhoneCalls | 🅾️ |  
+| **Prospection** | CRM Activities | 🅾️ |  
+| **Prospection** | Estimates | 🅾️ |  
+| **Catalog** | Items | 🅾️ |  
+| **Catalog** | Units | ✅ |  
+| **Catalog** | Taxes | ✅ |  
+| **Invoicing** | Accounting | 🅾️ |  
+| **Invoicing** | Purchase (OCR) | 🅾️ |  
+| **Invoicing** | Payments | 🅾️ |  
+| **Invoicing** | Invoices | 🅾️ |  
+| **Invoicing** | Credit Notes | 🅾️ |  
+| **Account** | Currencies | 🅾️ |  
+| **Account** | Custom Fields | 🅾️ |  
+| **Account** | Countries | 🅾️ |  
+| **Account** | Smart Tags | 🅾️ |  
+| **Account** | Documents | 🅾️ |  
+| **Account** | Staffs | 🅾️ |  
+| **Account** | Subscription | 🅾️ |  
+| **Account** | Quotas | 🅾️ |  
+| **Account** | Conformities | 🅾️ |  
+| **Account** | Notifications | 🅾️ |  
+| **Account** | Fiscal Year | 🅾️ |  
+
 ## Installation
 <a name="installation"></a>
 
-This library requires PHP `>= 7.4`.  
+| PHP version | Client version |  
+| :--------: | :------: |  
+| `>=8.1` | `^2.0` |  
+| `^8.0` | `^2.0` |  
+| `^7.4` | `^1.0` |  
 
 Get the library using composer :  
 
 ```
 composer require bluerock/sellsy-client
+```
+
+Alternatively, you can specify the desired version :  
+
+```
+composer require bluerock/sellsy-client:^1.0
+composer require bluerock/sellsy-client:dev-dev-2.x
 ```
 
 ## Usage
@@ -45,22 +138,17 @@ composer require bluerock/sellsy-client
 ## Authenticate
 <a name="usage_auth"></a>
 
-> ℹ For now, this package only supports "Personnal" OAuth client credentials authentication.  
+> ℹ At this moment, this package only supports "Personnal" OAuth client credentials authentication.  
 
-Before calling any API class (or the Client helper), you MUST provide your credentials via the `Config` class :  
+Before calling any API, you **MUST** provide your credentials using the `Config` class :  
 
 ```php
-use Bluerock\Sellsy\Core\Client;
 use Bluerock\Sellsy\Core\Config;
 
-$config = Config::getInstance();
-
-$config->set('url', 'https://api.sellsy.com/v2/') // optionnal, this is the default value.
-       ->set('client_id', 'f48f0fgm-2703-5689-2005-27403b5adb8d')
-       ->set('client_secret', 'av8v94jx0ildsjje50sm9x1hnmjsg27bnqyryc0zgbmtxxmzpjzlw2vnj9aockwe');
-
-$client = new Client();
-$client->contacts()->index()->json(); // List contacts from API.
+Bluerock\Sellsy\Core\Config::getInstance()
+      ->set('client_id', 'f48f0fgm-2703-5689-2005-27403b5adb8d')
+      ->set('client_secret', 'av8v94jx0ildsjje50sm9x1hnmjsg27bnqyryc0zgbmtxxmzpjzlw2vnj9aockwe')
+      ->set('url', 'https://api.sellsy.com/v2/'): // optional, this is the default value.
 ```
 
 [Learn more](https://api.sellsy.com/doc/v2/#section/Authentication) about Sellsy API v2 credentials.
@@ -71,7 +159,8 @@ $client->contacts()->index()->json(); // List contacts from API.
 ### The basics
 <a name="usage_query_basic"></a>
 
-The easier way to start querying the API is by initializing the corresponding domain class :  
+Each domain (eg: `Contacts`, `Items`, `Taxes`) is represented by a class. Each class contains methods that represent the endpoints of the related domain.  
+The easiest way to start querying the API is by initializing the corresponding class :  
 
 ```php
 use Bluerock\Sellsy\Api\ContactsApi;
@@ -79,25 +168,26 @@ use Bluerock\Sellsy\Api\ContactsApi;
 $contacts = new ContactsApi();
 $contacts->index();
 $contacts->show($contact_id);
+[...]
 ```
 
-You may also use the Client helper that holds all API namespaces using methods.    
+You may also make use of the `Client` helper that holds all API namespaces and returns instance based on the called method.    
 
 ```php
 use Bluerock\Sellsy\Core\Client;
 
-# With instance...
+# Creating an instance...
 $client = new Client();
 $client->contacts()->show($contact_id);
 
 # ... or statically.
-Client::contacts()->show($contact_id);
+Client::taxes()->index();
 ```
 
 ### Operations & methods
 <a name="usage_query_operations"></a>
 
-This client is using the CRUD operations keywords to name API methods :  
+This client is using the CRUD operations keywords to name API enpoint methods. :  
 
 | Client Keyword | Related operation |  
 |---|---|  
@@ -108,20 +198,91 @@ This client is using the CRUD operations keywords to name API methods :
 | `destroy` | Delete a single resource. |   
 | `search` | Search resources. |   
 
-
-Classic methods signatures :  
-
-```php
-public function index(array $query = []): self;
-public function show(string $id, array $query = []): self;
-public function store(\Bluerock\Sellsy\Entities\Contact $contact, array $query = []): self;
-public function update(\Bluerock\Sellsy\Entities\Contact $contact, array $query = []): self;
-public function destroy(int $id): self;
-```
-
 When issuing a request using one of these methods, you'll get back the api class object containing a response. If something goes wrong, a `RequestException` will be thrown.  
 
-Most of the time, you only need to retreive the instancied entity using `->entity()`method. However, you may also use one of other available methods :  
+When the request gives back one or multiple items in the response (generally on `index`, `show` or `search` endpoints), the client will parse them into DataTransfertObjects for you.  
+Call `entity()` or `entities()` on the given response to get thoses objects back : 
+
+```php  
+var_dump(
+  Bluerock\Sellsy\Core\Client::taxes()->index()->entities()
+);
+
+// Output :
+Bluerock\Sellsy\Collections\TaxCollection^ {
+  #iterator: ArrayIterator {#5776
+    -storage: array:6 [
+      0 => Bluerock\Sellsy\Entities\Tax^ {
+        +id: 4099258
+        +rate: 20
+        +label: ""
+      }
+      1 => Bluerock\Sellsy\Entities\Tax^ {
+        +id: 4099259
+        +rate: 10
+        +label: ""
+      }
+    ]
+  }
+}
+```
+
+If there are embed entities in the response, they will be automatically parsed into subsequent DTOs.
+Sometime you just want a raw response, when this happens you can use the `json()` method :  
+
+```php
+var_dump(
+  Bluerock\Sellsy\Core\Client::taxes()->index()->json()
+);
+
+array:2 [
+  "data" => array:6 [
+    0 => array:4 [
+      "id" => 4099258
+      "is_active" => true
+      "rate" => 20
+      "label" => ""
+    ]
+    1 => array:4 [
+      "id" => 4099259
+      "is_active" => true
+      "rate" => 10
+      "label" => ""
+    ]
+  ],
+  "pagination" => array:4 [
+    "limit" => 100
+    "count" => 6
+    "total" => 6
+    "offset" => "WyI0MDk5MjYzIl0="
+  ]
+]
+```
+
+You can always call `->toArray()` method on a entity or collection DTO to get back an array representation of it.
+The same goes for sending entities to Sellsy API (generally on `create` or `update` endpoints), the related methods will ask for a DTO as parameter.  
+
+```php
+use Bluerock\Sellsy\Entities;
+
+$contacts = new ContactsApi();
+
+$contacts->store(new Entities\Contact([
+    'civility'      => 'mr',
+    'first_name'    => 'Jean',
+    'last_name'     => 'MOULIN',
+    'email'         => 'user@example.com',
+    'website'       => 'example.com',
+    'mobile_number' => '0612121212',
+    'position'      => 'Directeur',
+    'social'        => new Entities\ContactSocials([
+        'twitter' => 'https://twitter.com/u/example',
+    ]),
+    'sync' => new Entities\ContactSync(),
+]));
+```
+
+Here are the available methods on the response : 
 
 ```php
 use Bluerock\Sellsy\Api\ContactsApi;
@@ -153,10 +314,12 @@ $api->response()->header($header): string;
 $api->response()->headers(): array;
 ```
 
-This client make use of DTO objects (called `Entity`). Results from api are parsed into DTO objects, and the client expects DTO objects as argument when manipulating entities in the API.  
-Under the hood, we are using the [spatie/data-transfer-object](https://github.com/spatie/data-transfer-object) library, so make sure to consult their documentation if you're unsure about DTO objects.
+Also, make sure to have a look at [spatie/data-transfer-object](https://github.com/spatie/data-transfer-object) package to learn more about DTOs.
 
-#### List a resource
+## Examples
+<a name="usage_examples"></a>
+
+#### Index
 <a name="usage_query_list"></a>
 
 To list a resource, use the `index()` method. This method accept query parameters as only argument.  
@@ -170,7 +333,7 @@ $index->entities();    // The API entities
 $index->pagination();  // The pagination DTO
 ```
 
-#### Show a resource
+#### Show
 <a name="usage_query_show"></a>
 
 To show a resource, use the `show()` method. This method accept the resource id as first parameter : 
@@ -266,7 +429,7 @@ Bluerock\Sellsy\Entities\Contact^ {
 }
 ```
 
-#### Create a resource
+#### Create
 <a name="usage_query_create"></a>
 
 When creating a resource, the `store()` method should be called. This method expect the entity object as first argument and `$query` parameters as second argument :  
@@ -296,7 +459,7 @@ $contacts->store(new Contact([
 The API returns the entity, therefore you can chain `->entity()` to retreive the created entity. 
 
 
-#### Update a resource
+#### Update
 <a name="usage_query_update"></a>
 
 When updating a resource, the `update()` method should be called. This method expect the Contact entity to be updated as first parameter and `$query` parameters as second argument :  
@@ -316,7 +479,7 @@ $contacts->update(new Contact([
 
 The API returns the entity, therefore you can chain `->entity()` to retreive the created entity. 
 
-#### Delete a resource
+#### Delete
 <a name="usage_query_delete"></a>
 
 When deleting a resource, the `destroy()` method should be called. This method only expect the resource id to be deleted :  

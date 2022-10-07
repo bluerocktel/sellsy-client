@@ -10,7 +10,7 @@ use Bluerock\Sellsy\Collections\CompanyCollection;
  *
  * @package sellsy-connector
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Companies
  */
@@ -32,7 +32,7 @@ class CompaniesApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return \Illuminate\Http\Client\Response
+     * @return self
      * @see https://api.sellsy.com/doc/v2/#operation/get-companies
      */
     public function index(array $query = []): self
@@ -132,6 +132,26 @@ class CompaniesApi extends AbstractApi
                         ->request("companies/{$id}")
                         ->delete();
         
+        $this->response = $response;
+        $this->response->throw();
+
+        return $this;
+    }
+
+    /**
+     * Search for companie using filters.
+     *
+     * @param array $query Query parameters.
+     *
+     * @return self
+     * @see https://api.sellsy.com/doc/v2/#operation/search-companies
+     */
+    public function search(array $filters = [], array $query = []): self
+    {
+        $response = $this->connection
+                        ->request('companies/search')
+                        ->post(compact('filters') + $query);
+
         $this->response = $response;
         $this->response->throw();
 
