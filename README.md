@@ -27,20 +27,22 @@
 
 > This package supports the Sellsy API at version 2. If you're looking for a client to query the version 1, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client).  
 
-This client is a PHP implementation of the Sellsy API. It's a wrapper around the Guzzle HTTP client. It's designed to be as simple as possible to use.
+This client is a PHP implementation of the Sellsy API. It's a wrapper around the Guzzle HTTP client. It's designed to be as simple as possible to use, while still being well documented.
 
 - You may read...  
 
 ```php
-$units   = new Bluerock\Sellsy\Api\UnitsApi();
-$results = $units->index()->entities();
+$api = new Bluerock\Sellsy\Api\UnitsApi();
+
+$results = $api->index()->entities();
 ```
 
 - You may search...  
 
 ```php
-$units = new Bluerock\Sellsy\Api\CompaniesApi();
-$results = $units->search([
+$api = new Bluerock\Sellsy\Api\CompaniesApi();
+
+$results = $api->search([
   'email'       => 'contact@example.com',
   'type'        => 'prospect',
   'is_archived' => false,
@@ -52,25 +54,26 @@ $results = $units->search([
 ```php
 use Bluerock\Sellsy\Entities;
 
-$contacts = new Bluerock\Sellsy\Entities\Contact();
-$contacts->store(new Entities\Contact([
+$api = new Bluerock\Sellsy\Entities\Contact();
+
+$contact = $api->store(new Entities\Contact([
     'civility'   => 'mr',
     'first_name' => 'Jean',
     'last_name'  => 'MOULIN',
     'email'      => 'user@example.com',
     'sync'       => new Entities\ContactSync(),
-]));
+]))->entity();
 ```
 
-The package is still a work in progress. If you're missing some endpoint implementation, do not hesitate to contribute or open an issue on this repo. You'll find below an array of the endpoints implementation status.
+The package is still a work in progress. If you're missing some endpoint implementation, do not hesitate to contribute or open an issue on this repo. You'll find below an array of the domains implementation status.
 
-### Client's Endpoints status
+### Client's Domains implementation status
 
 ✅ = Fully implemented  
 🆚 = Partially implemented  
 🅾️ = Not yet implemented  
 
-| Category | Endpoint | Status |   
+| Category | Domain | Status |   
 | :--------: | :------: | :---: |  
 | **Core** | Batch | 🅾️ |  
 | **Core** | API Management | 🅾️ |  
@@ -143,8 +146,6 @@ composer require bluerock/sellsy-client:dev-dev-2.x
 Before calling any API, you **MUST** provide your credentials using the `Config` class :  
 
 ```php
-use Bluerock\Sellsy\Core\Config;
-
 Bluerock\Sellsy\Core\Config::getInstance()
       ->set('client_id', 'f48f0fgm-2703-5689-2005-27403b5adb8d')
       ->set('client_secret', 'av8v94jx0ildsjje50sm9x1hnmjsg27bnqyryc0zgbmtxxmzpjzlw2vnj9aockwe')
@@ -160,6 +161,7 @@ Bluerock\Sellsy\Core\Config::getInstance()
 <a name="usage_query_basic"></a>
 
 Each domain (eg: `Contacts`, `Items`, `Taxes`) is represented by a class. Each class contains methods that represent the endpoints of the related domain.  
+
 The easiest way to start querying the API is by initializing the corresponding class :  
 
 ```php
@@ -167,11 +169,11 @@ use Bluerock\Sellsy\Api\ContactsApi;
 
 $contacts = new ContactsApi();
 $contacts->index();
+$contacts->search($filters);
 $contacts->show($contact_id);
-[...]
 ```
 
-You may also make use of the `Client` helper that holds all API namespaces and returns instance based on the called method.    
+You may also make use of the `Client` helper that holds all API domains and returns the Api Class matching the called method.    
 
 ```php
 use Bluerock\Sellsy\Core\Client;
@@ -201,6 +203,7 @@ This client is using the CRUD operations keywords to name API enpoint methods. :
 When issuing a request using one of these methods, you'll get back the api class object containing a response. If something goes wrong, a `RequestException` will be thrown.  
 
 When the request gives back one or multiple items in the response (generally on `index`, `show` or `search` endpoints), the client will parse them into DataTransfertObjects for you.  
+
 Call `entity()` or `entities()` on the given response to get thoses objects back : 
 
 ```php  
@@ -227,8 +230,9 @@ Bluerock\Sellsy\Collections\TaxCollection^ {
 }
 ```
 
-If there are embed entities in the response, they will be automatically parsed into subsequent DTOs.
-Sometime you just want a raw response, when this happens you can use the `json()` method :  
+If there are embed entities in the main entity, they will be automatically parsed into subsequent DTOs.  
+
+Sometime you just need a raw response, on this case use the `json()` method :  
 
 ```php
 var_dump(
@@ -259,8 +263,8 @@ array:2 [
 ]
 ```
 
-You can always call `->toArray()` method on a entity or collection DTO to get back an array representation of it.
-The same goes for sending entities to Sellsy API (generally on `create` or `update` endpoints), the related methods will ask for a DTO as parameter.  
+You can always call `toArray()` method on a entity or collection DTO to get back an array representation of it.  
+The same goes for sending entities to Sellsy API (generally on `create` or `update` endpoints). The related methods will ask for a DTO as first parameter.  
 
 ```php
 use Bluerock\Sellsy\Entities;
