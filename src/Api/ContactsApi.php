@@ -12,6 +12,7 @@ use Bluerock\Sellsy\Collections\ContactCollection;
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
+ * @see https://api.sellsy.com/doc/v2/#tag/Contacts
  */
 class ContactsApi extends AbstractApi
 {
@@ -25,7 +26,6 @@ class ContactsApi extends AbstractApi
         $this->entity     = Contact::class;
         $this->collection = ContactCollection::class;
     }
-
 
     /**
      * List all contacts.
@@ -47,7 +47,6 @@ class ContactsApi extends AbstractApi
         return $this;
     }
 
-
     /**
      * Show a single contact by id.
      *
@@ -68,7 +67,6 @@ class ContactsApi extends AbstractApi
 
         return $this;
     }
-
 
     /**
      * Store (create) an contact.
@@ -95,7 +93,6 @@ class ContactsApi extends AbstractApi
         return $this;
     }
 
-
     /**
      * Update an existing contact.
      *
@@ -120,7 +117,6 @@ class ContactsApi extends AbstractApi
 
         return $this;
     }
-
 
     /**
      * Delete an existing contact.

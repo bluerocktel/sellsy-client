@@ -2,19 +2,19 @@
 
 namespace Bluerock\Sellsy\Api;
 
-use Bluerock\Sellsy\Entities\Tax;
-use Bluerock\Sellsy\Collections\TaxCollection;
+use Bluerock\Sellsy\Entities\Unit;
+use Bluerock\Sellsy\Collections\UnitCollection;
 
 /**
- * The API client for the `taxes` namespace.
+ * The API client for the `units` namespace.
  *
  * @package sellsy-connector
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
- * @see https://api.sellsy.com/doc/v2/#tag/Taxes
+ * @see https://api.sellsy.com/doc/v2/#tag/Units
  */
-class TaxesApi extends AbstractApi
+class UnitsApi extends AbstractApi
 {
     /**
      * @inheritdoc
@@ -23,22 +23,22 @@ class TaxesApi extends AbstractApi
     {
         parent::__construct();
 
-        $this->entity     = Tax::class;
-        $this->collection = TaxCollection::class;
+        $this->entity     = Unit::class;
+        $this->collection = UnitCollection::class;
     }
 
     /**
-     * List all taxes.
+     * List all units.
      *
      * @param array $query Query parameters.
      *
      * @return \Illuminate\Http\Client\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/get-taxes
+     * @see https://api.sellsy.com/doc/v2/#operation/get-units
      */
     public function index(array $query = []): self
     {
         $response = $this->connection
-                        ->request('taxes')
+                        ->request('units')
                         ->get($query);
 
         $this->response = $response;

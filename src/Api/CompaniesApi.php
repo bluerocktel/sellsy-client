@@ -12,6 +12,7 @@ use Bluerock\Sellsy\Collections\CompanyCollection;
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
+ * @see https://api.sellsy.com/doc/v2/#tag/Companies
  */
 class CompaniesApi extends AbstractApi
 {
@@ -25,7 +26,6 @@ class CompaniesApi extends AbstractApi
         $this->entity     = Company::class;
         $this->collection = CompanyCollection::class;
     }
-
 
     /**
      * List all companies.
@@ -47,7 +47,6 @@ class CompaniesApi extends AbstractApi
         return $this;
     }
 
-
     /**
      * Show a single company by id.
      *
@@ -68,7 +67,6 @@ class CompaniesApi extends AbstractApi
 
         return $this;
     }
-
 
     /**
      * Store (create) an company.
@@ -95,7 +93,6 @@ class CompaniesApi extends AbstractApi
         return $this;
     }
 
-
     /**
      * Update an existing company.
      *
@@ -120,7 +117,6 @@ class CompaniesApi extends AbstractApi
 
         return $this;
     }
-
 
     /**
      * Delete an existing company.
