@@ -18,14 +18,14 @@ class Geocode extends FlexibleDataTransferObject implements EntityContract
     /**
      * Geocode latitude.
      *
-     * @var int|float
+     * @var int|float|null
      */
     public $lat;
 
     /**
      * Geocode longitude.
      *
-     * @var int|float
+     * @var int|float|null
      */
     public $lng;
 }
