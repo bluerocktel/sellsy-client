@@ -7,7 +7,7 @@ use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Spatie\DataTransferObject\DataTransferObjectCollection;
 
 /**
- * The Contact Entity collection.
+ * The Company Entity collection.
  *
  * @package sellsy-connector
  * @author Thomas <thomas@bluerocktel.com>
