@@ -2,8 +2,7 @@
 
 namespace Bluerock\Sellsy\Entities;
 
-use Bluerock\Sellsy\Contracts\EntityContract;
-use Spatie\DataTransferObject\FlexibleDataTransferObject;
+use Bluerock\Sellsy\Entities\Entity;
 
 /**
  * The Tax Entity.
@@ -13,7 +12,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * @version 1.0
  * @access public
  */
-class Unit extends FlexibleDataTransferObject implements EntityContract
+class Unit extends Entity
 {
     /**
      * <READONLY> Tax class ID from Sellsy.

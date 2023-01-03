@@ -3,9 +3,8 @@
 namespace Bluerock\Sellsy\Entities;
 
 use Bluerock\Sellsy\Entities\Socials;
-use Bluerock\Sellsy\Contracts\EntityContract;
 use Bluerock\Sellsy\Entities\Attributes;
-use Spatie\DataTransferObject\FlexibleDataTransferObject;
+use Bluerock\Sellsy\Entities\Entity;
 
 /**
  * The Contact Entity.
@@ -15,7 +14,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * @version 1.0
  * @access public
  */
-class Contact extends FlexibleDataTransferObject implements EntityContract
+class Contact extends Entity
 {
     use Attributes\Acl,
         Attributes\Addresses,

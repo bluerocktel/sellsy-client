@@ -2,8 +2,7 @@
 
 namespace Bluerock\Sellsy\Entities;
 
-use Bluerock\Sellsy\Contracts\EntityContract;
-use Spatie\DataTransferObject\FlexibleDataTransferObject;
+use Bluerock\Sellsy\Entities\Entity;
 
 /**
  * The Contact Entity.
@@ -13,7 +12,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * @version 1.0
  * @access public
  */
-class Pagination extends FlexibleDataTransferObject implements EntityContract
+class Pagination extends Entity
 {
     /**
      * The per_page pagination results.

@@ -3,8 +3,7 @@
 namespace Bluerock\Sellsy\Entities;
 
 use Bluerock\Sellsy\Entities\Geocode;
-use Bluerock\Sellsy\Contracts\EntityContract;
-use Spatie\DataTransferObject\FlexibleDataTransferObject;
+use Bluerock\Sellsy\Entities\Entity;
 
 /**
  * The Address Entity.
@@ -14,7 +13,7 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
  * @version 1.0
  * @access public
  */
-class Address extends FlexibleDataTransferObject implements EntityContract
+class Address extends Entity
 {
     /**
      * <READONLY> Address ID from Sellsy.
