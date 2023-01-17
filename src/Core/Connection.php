@@ -69,11 +69,11 @@ class Connection
     /**
      * Build up Request with prepared Auth and Endpoint.
      */
-    public function request(string $endpoint)
+    public function request(string $endpoint, ?RelatedEntity $related = null)
     {
         $endpoint = sprintf('%s/%s', trim($this->config->get('url'), '/'), $endpoint);
 
-        return Request::make($endpoint)
+        return Request::make($endpoint, $related)
                 ->withToken($this->getToken())
                 ->withOptions([])
                 ->withHeaders([

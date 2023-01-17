@@ -4,6 +4,7 @@ namespace Bluerock\Sellsy\Api;
 
 use Bluerock\Sellsy\Entities\Individual;
 use Bluerock\Sellsy\Collections\IndividualCollection;
+use Bluerock\Sellsy\Core\Response;
 
 /**
  * The API client for the `individual` namespace.
@@ -32,19 +33,16 @@ class IndividualsApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-individuals
      */
-    public function index(array $query = []): self
+    public function index(array $query = []): Response
     {
         $response = $this->connection
                         ->request('individuals')
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -53,19 +51,16 @@ class IndividualsApi extends AbstractApi
      * @param string $id     The individual id to retrieve.
      * @param array  $query  Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-individual
      */
-    public function show(string $id, array $query = []): self
+    public function show(string $id, array $query = []): Response
     {
         $response = $this->connection
                         ->request("individuals/{$id}")
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -74,10 +69,10 @@ class IndividualsApi extends AbstractApi
      * @param Individual $individual The individual entity to store.
      * @param array   $query   Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/create-individual
      */
-    public function store(Individual $individual, array $query = []): self
+    public function store(Individual $individual, array $query = []): Response
     {
         $body = $individual->except('id')
                         ->except('owner')
@@ -87,10 +82,7 @@ class IndividualsApi extends AbstractApi
                         ->request('individuals')
                         ->post(array_filter($body) + $query);
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -99,10 +91,10 @@ class IndividualsApi extends AbstractApi
      * @param Individual $individual The individual entity to store.
      * @param array   $query   Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/update-individual
      */
-    public function update(Individual $individual, array $query = []): self
+    public function update(Individual $individual, array $query = []): Response
     {
         $body = $individual->except('id')
                         ->except('owner')
@@ -112,10 +104,7 @@ class IndividualsApi extends AbstractApi
                         ->request("individuals/{$individual->id}")
                         ->put(array_filter($body) + $query);
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -123,19 +112,16 @@ class IndividualsApi extends AbstractApi
      *
      * @param int $id The individual id to be deleted.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/delete-individual
      */
-    public function destroy(int $id): self
+    public function destroy(int $id): Response
     {
         $response = $this->connection
                         ->request("individuals/{$id}")
                         ->delete();
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -143,18 +129,15 @@ class IndividualsApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/search-individuals
      */
-    public function search(array $filters = [], array $query = []): self
+    public function search(array $filters = [], array $query = []): Response
     {
         $response = $this->connection
                         ->request('individuals/search')
                         ->post(compact('filters') + $query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 }

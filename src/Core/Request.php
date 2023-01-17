@@ -2,7 +2,9 @@
 
 namespace Bluerock\Sellsy\Core;
 
+use Bluerock\Sellsy\Core\Response;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\PendingRequest;
 
 /**
  * A wrapper around the Illuminate\Http\Client package.
@@ -22,6 +24,13 @@ class Request
      * @var Factory|PendingRequest
      */
     protected $req = null;
+    
+    /**
+     * The endpoint URL to issue the request at.
+     *
+     * @var string
+     */
+    protected string $url;
 
     /**
      * Initiate the Request.
@@ -50,66 +59,78 @@ class Request
      * Issue a GET request to the given URL.
      *
      * @param  array|string|null  $query
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      */
     public function get($query = null)
     {
-        return $this->req->get($this->url, $query);
+        return new Response(
+            $this->req->get($this->url, $query)
+        );
     }
 
     /**
      * Issue a HEAD request to the given URL.
      *
      * @param  array|string|null  $query
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      */
     public function head($query = null)
     {
-        return $this->req->head($this->url, $query);
+        return new Response(
+            $this->req->head($this->url, $query)
+        );
     }
 
     /**
      * Issue a POST request to the given URL.
      *
      * @param  array  $data
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      */
     public function post(array $data = [])
     {
-        return $this->req->post($this->url, $data);
+        return new Response(
+            $this->req->post($this->url, $data)
+        );
     }
 
     /**
      * Issue a PATCH request to the given URL.
      *
      * @param  array  $data
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      */
     public function patch($data = [])
     {
-        return $this->req->patch($this->url, $data);
+        return new Response(
+            $this->req->patch($this->url, $data)
+        );
     }
 
     /**
      * Issue a PUT request to the given URL.
      *
      * @param  array  $data
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      */
     public function put($data = [])
     {
-        return $this->req->put($this->url, $data);
+        return new Response(
+            $this->req->put($this->url, $data)
+        );
     }
 
     /**
      * Issue a DELETE request to the given URL.
      *
      * @param  array  $data
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      */
     public function delete($data = [])
     {
-        return $this->req->delete($this->url, $data);
+        return new Response(
+            $this->req->delete($this->url, $data)
+        );
     }
 
     /**

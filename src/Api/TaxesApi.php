@@ -4,6 +4,7 @@ namespace Bluerock\Sellsy\Api;
 
 use Bluerock\Sellsy\Entities\Tax;
 use Bluerock\Sellsy\Collections\TaxCollection;
+use Bluerock\Sellsy\Core\Response;
 
 /**
  * The API client for the `taxes` namespace.
@@ -32,18 +33,15 @@ class TaxesApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-taxes
      */
-    public function index(array $query = []): self
+    public function index(array $query = []): Response
     {
         $response = $this->connection
                         ->request('taxes')
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 }

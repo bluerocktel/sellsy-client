@@ -2,11 +2,9 @@
 
 namespace Bluerock\Sellsy\Api;
 
+use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Core\Connection;
-use Illuminate\Http\Client\Response;
-use Bluerock\Sellsy\Entities\Pagination;
-use Bluerock\Sellsy\Contracts\EntityContract;
-use Bluerock\Sellsy\Contracts\EntityCollectionContract;
+use Bluerock\Sellsy\Core\RelatedEntity;
 
 /**
  * The default API client class to extend.
@@ -25,13 +23,6 @@ abstract class AbstractApi
      * @var \Bluerock\Sellsy\Core\Connection
      */
     protected ?Connection $connection;
-
-    /**
-     * The last request response.
-     *
-     * @var \Illuminate\Http\Client\Response
-     */
-    protected ?Response $response;
 
     /**
      * The related entity.
@@ -56,77 +47,18 @@ abstract class AbstractApi
     }
 
     /**
-     * Get the last request response.
-     *
-     * @return \Illuminate\Http\Client\Response
+     * Parse the response.
+     * 
+     * @return \Bluerock\Sellsy\Core\Response
      */
-    public function response(): Response
+    protected function prepareResponse(Response $response): Response
     {
-        return $this->response;
-    }
-    
-    /**
-     * Get the last request json data.
-     *
-     * @return array
-     */
-    public function json(): ?array
-    {
-        $data = $this->response->json();
+        $response->setRelatedEntity(
+            new RelatedEntity($this->entity, $this->collection)
+        );
 
-        if (isset($data['data'])) {
-            $data['data'] = array_map([$this, 'parseEmbed'], $data['data']);
-        }
+        $response->throw();
 
-        return $this->parseEmbed($data);
-    }
-    
-    /**
-     * Parse embed fields.
-     *
-     * @return array
-     */
-    protected function parseEmbed(array $data): ?array
-    {
-        if (isset($data['_embed'])) {
-            $data = array_merge($data, $data['_embed']);
-            unset($data['_embed']);
-        }
-
-        return $data;
-    }
-    
-    /**
-     * Get the last request parsed entity.
-     *
-     * @return EntityContract
-     */
-    public function entity(): ?EntityContract
-    {
-        return new $this->entity($this->json());
-    }
-    
-    /**
-     * Get the last request parsed entity.
-     *
-     * @return EntityContract
-     */
-    public function entities(): ?EntityCollectionContract
-    {
-        $data = $this->json();
-
-        return isset($data['data']) ? $this->collection::create($data['data']) : null;
-    }
-    
-    /**
-     * Get the last request parsed entity.
-     *
-     * @return EntityContract
-     */
-    public function pagination(): ?Pagination
-    {
-        $data = $this->json();
-
-        return isset($data['pagination']) ? new Pagination($data['pagination']) : null;
+        return $response;
     }
 }

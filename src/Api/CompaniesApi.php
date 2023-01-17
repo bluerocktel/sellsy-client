@@ -4,6 +4,7 @@ namespace Bluerock\Sellsy\Api;
 
 use Bluerock\Sellsy\Entities\Company;
 use Bluerock\Sellsy\Collections\CompanyCollection;
+use Bluerock\Sellsy\Core\Response;
 
 /**
  * The API client for the `companies` namespace.
@@ -32,19 +33,16 @@ class CompaniesApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-companies
      */
-    public function index(array $query = []): self
+    public function index(array $query = []): Response
     {
         $response = $this->connection
                         ->request('companies')
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -53,19 +51,16 @@ class CompaniesApi extends AbstractApi
      * @param string $id     The company id to retrieve.
      * @param array  $query  Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-company
      */
-    public function show(string $id, array $query = []): self
+    public function show(string $id, array $query = []): Response
     {
         $response = $this->connection
                         ->request("companies/{$id}")
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -74,10 +69,10 @@ class CompaniesApi extends AbstractApi
      * @param Company $company The company entity to store.
      * @param array   $query   Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/create-company
      */
-    public function store(Company $company, array $query = []): self
+    public function store(Company $company, array $query = []): Response
     {
         $body = $company->except('id')
                         ->except('owner')
@@ -86,11 +81,8 @@ class CompaniesApi extends AbstractApi
         $response = $this->connection
                         ->request('companies')
                         ->post(array_filter($body) + $query);
-        
-        $this->response = $response;
-        $this->response->throw();
 
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -99,10 +91,10 @@ class CompaniesApi extends AbstractApi
      * @param Company $company The company entity to store.
      * @param array   $query   Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/update-company
      */
-    public function update(Company $company, array $query = []): self
+    public function update(Company $company, array $query = []): Response
     {
         $body = $company->except('id')
                         ->except('owner')
@@ -112,10 +104,7 @@ class CompaniesApi extends AbstractApi
                         ->request("companies/{$company->id}")
                         ->put(array_filter($body) + $query);
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -123,19 +112,16 @@ class CompaniesApi extends AbstractApi
      *
      * @param int $id The company id to be deleted.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/delete-company
      */
-    public function destroy(int $id): self
+    public function destroy(int $id): Response
     {
         $response = $this->connection
                         ->request("companies/{$id}")
                         ->delete();
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -143,18 +129,15 @@ class CompaniesApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/search-companies
      */
-    public function search(array $filters = [], array $query = []): self
+    public function search(array $filters = [], array $query = []): Response
     {
         $response = $this->connection
                         ->request('companies/search')
                         ->post(compact('filters') + $query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 }

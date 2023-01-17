@@ -2,6 +2,7 @@
 
 namespace Bluerock\Sellsy\Api;
 
+use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contact;
 use Bluerock\Sellsy\Collections\ContactCollection;
 
@@ -35,16 +36,13 @@ class ContactsApi extends AbstractApi
      * @return \Illuminate\Http\Client\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-contacts
      */
-    public function index(array $query = []): self
+    public function index(array $query = []): Response
     {
         $response = $this->connection
                         ->request('contacts')
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -53,19 +51,16 @@ class ContactsApi extends AbstractApi
      * @param string $id     The contact id to retrieve.
      * @param array  $query  Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-contact
      */
-    public function show(string $id, array $query = []): self
+    public function show(string $id, array $query = []): Response
     {
         $response = $this->connection
                         ->request("contacts/{$id}")
                         ->get($query);
 
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -74,10 +69,10 @@ class ContactsApi extends AbstractApi
      * @param Contact $contact The contact entity to store.
      * @param array   $query   Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/create-contact
      */
-    public function store(Contact $contact, array $query = []): self
+    public function store(Contact $contact, array $query = []): Response
     {
         $body = $contact->except('id')
                         ->except('owner')
@@ -87,10 +82,7 @@ class ContactsApi extends AbstractApi
                         ->request('contacts')
                         ->post(array_filter($body) + $query);
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -99,10 +91,10 @@ class ContactsApi extends AbstractApi
      * @param Contact $contact The contact entity to store.
      * @param array   $query   Query parameters.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/update-contact
      */
-    public function update(Contact $contact, array $query = []): self
+    public function update(Contact $contact, array $query = []): Response
     {
         $body = $contact->except('id')
                         ->except('owner')
@@ -112,10 +104,7 @@ class ContactsApi extends AbstractApi
                         ->request("contacts/{$contact->id}")
                         ->put(array_filter($body) + $query);
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 
     /**
@@ -123,18 +112,15 @@ class ContactsApi extends AbstractApi
      *
      * @param int $id The contact id to be deleted.
      *
-     * @return self
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/delete-contact
      */
-    public function destroy(int $id): self
+    public function destroy(int $id): Response
     {
         $response = $this->connection
                         ->request("contacts/{$id}")
                         ->delete();
         
-        $this->response = $response;
-        $this->response->throw();
-
-        return $this;
+        return $this->prepareResponse($response);
     }
 }
