@@ -8,6 +8,7 @@ use Bluerock\Sellsy\Exceptions\RuntimeException;
 use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Illuminate\Http\Client\Response as IlluminateResponse;
 use Bluerock\Sellsy\Exceptions\MissingRelatedEntityException;
+use Illuminate\Support\Fluent;
 
 /**
  * A wrapper around the Illuminate\Http\Client package.
@@ -25,14 +26,21 @@ class Response
      *
      * @var \Illuminate\Http\Client\Response
      */
-    protected IlluminateResponse $resp = null;
+    protected IlluminateResponse $resp;
     
     /**
      * The realted DTO entity.
      *
      * @var RelatedEntity
      */
-    protected ?RelatedEntity $related = null;
+    protected ?RelatedEntity $related;
+    
+    /**
+     * The response body as a Fluent object.
+     *
+     * @var \Illuminate\Support\Fluent
+     */
+    private Fluent $body;
 
     /**
      * Initiate the Response.
@@ -43,6 +51,8 @@ class Response
     {
         $this->resp    = $resp;
         $this->related = $related;
+
+        $this->body = new Fluent($this->json());
     }
 
     /**
@@ -133,7 +143,11 @@ class Response
             throw new MissingRelatedEntityException('The related entity does not defined a single entity class definition.');
         }
 
-        return $this->related->newEntity($this->json());
+        if ($this->type() !== 'single') {
+            return null;
+        }
+
+        return $this->related->newEntity($this->body->toArray());
     }
     
     /**
@@ -151,37 +165,36 @@ class Response
             throw new MissingRelatedEntityException('The related entity does not defined a collection entity class definition.');
         }
 
-        $data = $this->json();
+        if ($this->type() !== 'listing') {
+            return null;
+        }
 
-        return isset($data['data']) 
-                    ? $this->related->newCollection($data['data'])
-                    : null;
+        return $this->related->newCollection($this->body->data);
     }
     
     /**
-     * Get the last request parsed entity.
+     * Get the response pagination entity if present in the body.
      *
-     * @return EntityContract
+     * @return \Bluerock\Sellsy\Entities\|null
      */
     public function pagination(): ?Pagination
     {
-        $data = $this->json();
-
-        return isset($data['pagination']) ? new Pagination($data['pagination']) : null;
+        return $this->body->pagination
+                    ? new Pagination($this->body->pagination)
+                    : null;
     }
 
     /**
-     * Get the last request parsed entity.
+     * Determine the type of the response between a listing
+     * (multiple entities) and a single (single entity).
      *
      * @return EntityContract
      */
     public function type()
     {
-        $data = $this->json();
-
-        return isset($data['data']) && isset($data['pagination'])
-                    ? 'collection'
-                    : 'entity';
+        return $this->body->pagination && $this->body->data
+                    ? 'listing'
+                    : 'single';
     }
 
     /**

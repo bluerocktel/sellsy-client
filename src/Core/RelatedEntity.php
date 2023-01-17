@@ -32,7 +32,7 @@ class RelatedEntity
      */
     public function __construct(
         string $single,
-        string $collection,
+        string $collection
     ) {
         $this->single     = $single;
         $this->collection = $collection;
