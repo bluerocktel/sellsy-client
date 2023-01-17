@@ -4,6 +4,7 @@ namespace Bluerock\Sellsy\Core;
 
 use Bluerock\Sellsy\Entities\Pagination;
 use Bluerock\Sellsy\Contracts\EntityContract;
+use Bluerock\Sellsy\Exceptions\RuntimeException;
 use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Illuminate\Http\Client\Response as IlluminateResponse;
 use Bluerock\Sellsy\Exceptions\MissingRelatedEntityException;
@@ -128,6 +129,10 @@ class Response
             throw new MissingRelatedEntityException('No related entity defined for this response instance.');
         }
 
+        if (is_null($this->related->single())) {
+            throw new MissingRelatedEntityException('The related entity does not defined a single entity class definition.');
+        }
+
         return $this->related->newEntity($this->json());
     }
     
@@ -140,6 +145,10 @@ class Response
     {
         if (!($this->related instanceof RelatedEntity)) {
             throw new MissingRelatedEntityException('No related entity defined for this response instance.');
+        }
+
+        if (is_null($this->related->collection())) {
+            throw new MissingRelatedEntityException('The related entity does not defined a collection entity class definition.');
         }
 
         $data = $this->json();
