@@ -8,9 +8,9 @@ use Bluerock\Sellsy\Exceptions\InvalidCredentialsException;
 /**
  * The API client used for authentication.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  */
 class Authentication
@@ -22,6 +22,7 @@ class Authentication
      * @param string $client_secret
      *
      * @return array token informations
+     * @throws \Bluerock\Sellsy\Exceptions\InvalidCredentialsException
      */
     public function getToken(string $client_id, string $client_secret)
     {

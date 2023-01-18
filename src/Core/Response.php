@@ -4,7 +4,6 @@ namespace Bluerock\Sellsy\Core;
 
 use Bluerock\Sellsy\Entities\Pagination;
 use Bluerock\Sellsy\Contracts\EntityContract;
-use Bluerock\Sellsy\Exceptions\RuntimeException;
 use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 use Illuminate\Http\Client\Response as IlluminateResponse;
 use Bluerock\Sellsy\Exceptions\MissingRelatedEntityException;
@@ -14,7 +13,7 @@ use Illuminate\Support\Fluent;
  * A wrapper around the Illuminate\Http\Client package.
  * This class is used to contain the response from the API request.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.1
  * @access public

@@ -8,9 +8,9 @@ use Bluerock\Sellsy\Core\Request;
 /**
  * The single connection instance, issuing prepared & authenticated requests.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  */
 class Connection
@@ -67,23 +67,26 @@ class Connection
     }
 
     /**
-     * Build up Request with prepared Auth and Endpoint.
+     * Instanciate a new Request instance,
+     * with Auth token and fully qualified Endpoint.
+     * 
+     * @param string $endpoint The unqualified endpoint to call.
+     * @return \Bluerock\Sellsy\Core\Request
      */
-    public function request(string $endpoint, ?RelatedEntity $related = null)
+    public function request(string $endpoint)
     {
-        $endpoint = sprintf('%s/%s', trim($this->config->get('url'), '/'), $endpoint);
+        $endpoint = sprintf('%s/%s', trim($this->config->get('url'), '/'), ltrim($endpoint, '/'));
 
-        return Request::make($endpoint, $related)
-                ->withToken($this->getToken())
-                ->withOptions([])
-                ->withHeaders([
-                    'Accept' => 'application/json',
-                ]);
+        return Request::make($endpoint)
+                    ->withToken($this->getToken())
+                    ->withOptions([])
+                    ->withHeaders([
+                        'Accept' => 'application/json',
+                    ]);
     }
 
-
     /**
-     * Check if we have a valid token to use.
+     * Check if we have a valid and unexpired auth token to use.
      *
      * @return bool
      */
@@ -92,11 +95,11 @@ class Connection
         return $this->config->get('authentication.token') && time() < $this->config->get('authentication.expires_at');
     }
     
-    
     /**
-     * Check if we have a valid token to use.
+     * Get the Sellsy Auth token.
+     * If no token exists, or if the token is expired, get a new one.
      *
-     * @return bool
+     * @return string
      */
     protected function getToken()
     {

@@ -10,9 +10,9 @@ use Bluerock\Sellsy\Core\RelatedEntity;
  * The default API client class to extend.
  * Use $connection->request($endpoint) to create a new authenticated request.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  */
 abstract class AbstractApi

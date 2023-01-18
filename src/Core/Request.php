@@ -11,9 +11,9 @@ use Illuminate\Http\Client\PendingRequest;
  * Allows the creation of a pending request, giving the endpoint
  * at class creation so we can alter the PendingRequest before submission.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  */
 class Request
@@ -53,6 +53,16 @@ class Request
     public static function make(string $url)
     {
         return new static($url);
+    }
+
+    /**
+     * Get the base pending request (or factory) from the HTTP Client.
+     * 
+     * @return Factory|PendingRequest
+     */
+    public function base()
+    {
+        return $this->req;
     }
 
     /**

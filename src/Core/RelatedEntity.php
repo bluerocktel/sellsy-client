@@ -6,7 +6,10 @@ use Bluerock\Sellsy\Contracts\EntityContract;
 use Bluerock\Sellsy\Contracts\EntityCollectionContract;
 
 /**
- * @package sellsy-connector
+ * This class is used to contain the entity and collection classes,
+ * to help the response building corresponding DTOs.
+ * 
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.1
  * @access public

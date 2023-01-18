@@ -9,9 +9,9 @@ use Bluerock\Sellsy\Core\Response;
 /**
  * The API client for the `taxes` namespace.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Taxes
  */

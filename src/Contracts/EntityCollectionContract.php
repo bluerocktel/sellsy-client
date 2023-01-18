@@ -5,7 +5,7 @@ namespace Bluerock\Sellsy\Contracts;
 /**
  * The Entity contract.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public

@@ -6,7 +6,7 @@ namespace Bluerock\Sellsy\Entities;
  * The Company Entity.
  * This entity extends the generic "Client" entity, used also for Individuals.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public

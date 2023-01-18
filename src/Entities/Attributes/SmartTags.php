@@ -5,7 +5,7 @@ namespace Bluerock\Sellsy\Entities\Attributes;
 /**
  * ACL Attributes.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public

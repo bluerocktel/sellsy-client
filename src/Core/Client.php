@@ -5,12 +5,12 @@ namespace Bluerock\Sellsy\Core;
 use Bluerock\Sellsy\Exceptions\DomainException;
 
 /**
- * A client instance retreiving corresponding API class fluently.
- * E.g: Show single contact address : Client::contacts()->addresses()->show($id).
+ * A Client facade fluently retreiving API classes from their namespace.
+ * E.g: Show single contact : Client::contacts()->show($id).
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.0
+ * @version 1.1
  * @access public
  */
 class Client
@@ -21,32 +21,19 @@ class Client
     }
 
     /**
-     * To return the collection instance, initiated by the definition.
+     * Return the API class instance, found by the namespace.
      *
-     * @param class-string<CollectionInterface> $collectionName
-     * @param array<mixed, mixed> $arguments
-     *
-     * @throws DomainException  if the collection does not exist
-     * @throws RuntimeException if the collection's definition does not implementing the good interface
-     * @throws ReflectionException
+     * @param string $name
+     * @throws \Bluerock\Sellsy\Exceptions\DomainException  if the namespace does not exist
      */
     public static function __callStatic(string $name, array $arguments)
     {
-        $class = 'Bluerock\Sellsy\Api\\' . ucfirst($name) . 'Api';
+        $class = '\Bluerock\Sellsy\Api\\' . ucfirst($name) . 'Api';
 
         if (!class_exists($class)) {
-            throw new DomainException("Error, the api '{$name}' has been not found (looking for class `{$class}`.");
+            throw new DomainException("The api namespace '{$name}' has not been found (Class `{$class}` does not exist).");
         }
 
-        // $reflectionClass = new ReflectionClass($collectionClassName);
-        // if (!$reflectionClass->implementsInterface(DefinitionInterface::class)) {
-        //     throw new RuntimeException(
-        //         "Error, the definition of $collectionName must implement " . DefinitionInterface::class
-        //     );
-        // }
-        // /** @var callable $definitionInstance */
-        // $definitionInstance = $reflectionClass->newInstance();
-
-        return new $class();
+        return new $class(...$arguments);
     }
 }

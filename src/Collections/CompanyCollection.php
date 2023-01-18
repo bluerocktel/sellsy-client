@@ -9,7 +9,7 @@ use Spatie\DataTransferObject\DataTransferObjectCollection;
 /**
  * The Company Entity collection.
  *
- * @package sellsy-connector
+ * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.0
  * @access public
