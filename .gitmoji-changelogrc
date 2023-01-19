@@ -1,0 +1,7 @@
+{
+  "project": {
+    "name": "bluerock/sellsy-client",
+    "description": "A lightweight PHP client to query the Sellsy API V2",
+    "version": "1.1.0"
+  }
+}

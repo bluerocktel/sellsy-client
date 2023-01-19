@@ -173,8 +173,6 @@ Any additional method available in Sellsy API would follow the camel case conven
 
 When issuing a request, you will get back a `Bluerock\Sellsy\Core\Response` object holding methods to verify and read the response.  
 
-By default, the Request will throw a `\Illuminate\Http\Client\RequestException` if the request returns a `4xx` or `5xx` code.  
-
 You can inspect the response using any of those methods : 
 
 ```php
@@ -196,6 +194,30 @@ $response->clientError(): bool;
 $response->header($header): string;
 $response->headers(): array;
 ``` 
+
+By default, the Request will throw a `\Illuminate\Http\Client\RequestException` if the request returns an error status code (`4xx`—`5xx`).    
+
+```php
+/**
+ * @return \Bluerock\Sellsy\Models\Contact|false
+ * @throws \Illuminate\Http\Client\RequestException
+ */
+public function maybeFindMyContact($contact_id)
+{
+    try {
+        return Bluerock\Sellsy\Core\Client::contacts()->show($contact_id)->entity();
+
+        # catch the RequestException and return false if the contact is not found.
+    } catch (\Illuminate\Http\Client\RequestException $e) {
+        if ($e->response->status() === 404) {
+          return false;
+        }
+
+        throw $e;
+    }
+}
+```
+
 
 #### Some notes on response & DTOs  
 
