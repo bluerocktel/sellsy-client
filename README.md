@@ -10,7 +10,8 @@
   - [Authenticate](#usage_auth)
   - [Query the API](#usage_query)
     - [The basics](#usage_query_basic)
-    - [Operations](#usage_query_operations)
+    - [Requests](#usage_requests)
+    - [Responses](#usage_responses)
   - [Examples](#usage_examples)
 - [Developments status](#dev_status)
 - [Contribute](#contribute)
@@ -145,10 +146,9 @@ $client->contacts()->show($contact_id);
 Client::taxes()->index();
 ```
 
-### Operations & methods
-<a name="usage_query_operations"></a>
-
 ### Requests 
+<a name="usage_requests"></a>
+
 This client is using the Laravel CRUD operations keywords to name methods :  
 
 | HTTP Operation | Client Method | Related operation |  
@@ -162,15 +162,17 @@ This client is using the Laravel CRUD operations keywords to name methods :
 
 Any additional method available in Sellsy API would follow the camel case convention. For example, additional Companies methods would look like this : 
 
-| Client Method | Related operation |  
+| Sellsy Company operation | Client Method |  
 |---|---|  
-| `CompaniesApi::showAddress(...$args)` | Get a company address. | 
-| `CompaniesApi::updateAddress(...$args)` | Update a company address. | 
-| `CompaniesApi::linkContact(...$args)` | Link a contact at one company. | 
+| Get a company address. | `CompaniesApi::showAddress(...)` |  
+| Update a company address. | `CompaniesApi::updateAddress(...)` |  
+| Link a contact at one company. | `CompaniesApi::linkContact(...)` |  
 
 ### Responses 
+<a name="usage_responses"></a>
 
 When issuing a request, you will get back a `Bluerock\Sellsy\Core\Response` object holding methods to verify and read the response.  
+
 By default, the Request will throw a `\Illuminate\Http\Client\RequestException` if the request returns a `4xx` or `5xx` code.  
 
 You can inspect the response using any of those methods : 
@@ -197,7 +199,7 @@ $response->headers(): array;
 
 #### Some notes on response & DTOs  
 
-To get retrieve the DTO entities from the Response, you may call `entity()` or `entities()` methods : 
+To retrieve the DTO entities from the Response, you may call one of `entity()` and `entities()` methods : 
 
 ```php  
 var_dump(
@@ -263,7 +265,7 @@ array:2 [
 #### Index
 <a name="usage_query_list"></a>
 
-To list a resource, use the `index()` method. This method accept query parameters as only argument.  
+Listing a resource, is done by using the `index()` method, which accept query parameters as only argument.  
 
 ```php
 $contactsApi = new ContactsApi();
@@ -287,7 +289,7 @@ $response->pagination();  // The pagination DTO
 #### Show
 <a name="usage_query_show"></a>
 
-To show a resource, use the `show()` method. This method accept the resource id as first parameter and query parameters as second : 
+The show method accept the resource id as first parameter and query parameters as second : 
 
 ```php
 $response = $contactsApi->show('123', [
@@ -299,7 +301,7 @@ $response = $contactsApi->show('123', [
 $response->entity();    // The API entity
 ```
 
-This returns a `Bluerock\Sellsy\Entities\Contact` instance :  
+This would return a `Bluerock\Sellsy\Entities\Contact` instance :  
 
 ```php
 Bluerock\Sellsy\Entities\Contact^ {
@@ -334,7 +336,7 @@ Bluerock\Sellsy\Entities\Contact^ {
   +delivery_address: null
   +created: "2022-02-16T15:56:17+01:00"
   +owner: array:2 [
-    "id" => 214007
+    "id" => 567
     "type" => "staff"
   ]
 }
@@ -343,7 +345,7 @@ Bluerock\Sellsy\Entities\Contact^ {
 #### Create
 <a name="usage_query_create"></a>
 
-When creating a resource, the `store()` method should be called. This method expect the entity object as first argument and `$query` parameters as second argument :  
+The store method, used to create a resource, expect the entity object as first argument and may have `$query` parameters as second argument :  
 
 ```php
 use Bluerock\Sellsy\Entities;
@@ -362,16 +364,15 @@ $contactsApi->store(new Entities\Contact([
     ]),
 ]));
 
+$response->entity();  // The created entity
 $response->json();    // The Sellsy response
 ```
-
-The API returns the entity, therefore you can chain `->entity()` to retreive the created entity. 
 
 
 #### Update
 <a name="usage_query_update"></a>
 
-When updating a resource, the `update()` method should be called. This method expect the Contact entity to be updated as first parameter and `$query` parameters as second argument :  
+The update method expect the resource to be updated as first parameter and `$query` parameters as second argument :  
 
 ```php
 use Bluerock\Sellsy\Entities;
@@ -392,7 +393,7 @@ Here, the "id" parameter is extracted from the given Contact entity.
 #### Delete
 <a name="usage_query_delete"></a>
 
-When deleting a resource, the `destroy()` method should be called. This method only expect the resource id to be deleted :  
+When deleting a resource, the destroy method should be called. This method only expect the resource id to be deleted :  
 
 ```php
 $contactsApi->delete(123)->json();
@@ -416,7 +417,7 @@ $contactsApi->delete(123)->json();
 | **Core** | Files | 🅾️ |  
 | **Prospection** | Companies | ✅ |  
 | **Prospection** | Contacts | ✅ |  
-| **Prospection** | Individuals | ✅ =️ |  
+| **Prospection** | Individuals | ✅ |  
 | **Prospection** | Opportunities | 🅾️ |  
 | **Prospection** | Calendar | 🅾️ |  
 | **Prospection** | Emails | 🅾️ |  
@@ -457,7 +458,7 @@ If you find any security issue, please contact me at thomas@bluerocktel.com inst
 ## Credits
 <a name="credits"></a>
 
-- [BluerockTel](https://bluerocktel.com)
+- [BlueRockTEL](https://bluerocktel.com)
 - [Thomas Georgel](https://github.com/tgeorgel)
 - [All Contributors](../../contributors)
 
