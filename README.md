@@ -195,7 +195,7 @@ $response->header($header): string;
 $response->headers(): array;
 ``` 
 
-By default, the Request will throw a `\Illuminate\Http\Client\RequestException` if the request returns an error status code (`4xx`—`5xx`).    
+By default, the Request will throw a `RequestException` if the request returns an error (status code `4xx —> 5xx`). You can easily catch this exception and handle it as you wish :  
 
 ```php
 /**
@@ -208,15 +208,14 @@ public function maybeFindMyContact($contact_id)
         return Bluerock\Sellsy\Core\Client::contacts()
                     ->show($contact_id)
                     ->entity();
-
-      # catch the RequestException
     } catch (\Illuminate\Http\Client\RequestException $e) {
         # return false if the contact is not found (404 error).
-        if ($e->response->status() === 404) {
+        if ($e->response->clientError() && $e->response->status() === 404) {
           return false;
         }
 
-      throw $e;
+        # throw the exception for any other status code.
+        throw $e;
     }
 }
 ```
