@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Collections\ItemCollection;
 /**
  * The API client for the `items` namespace.
  *
- * @package cedricWebsenso/sellsy-client
+ * @package bluerock/sellsy-client
  * @author Cédric <cedric@websenso.com>
  * @version 1.0
  * @access public

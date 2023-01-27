@@ -22,7 +22,7 @@
 ## Introduction
 <a name="introduction"></a>
 
-This package is PHP client for the Sellsy API. It's a light wrapper around the Guzzle HTTP client. It's designed to be as simple as possible to use, while being robust.
+This package is a PHP client for the Sellsy API. It's a light wrapper around the Guzzle HTTP client. It's designed to be as simple as possible to use, while being robust.
 
 The client **only supports the V2 of Sellsy API**. If you're looking for a V1 client, checkout [TeknooSoftware/sellsy-client](https://github.com/TeknooSoftware/sellsy-client) instead.  
 
@@ -50,16 +50,12 @@ $contact = new Entities\Contact([
 $api = new Api\ContactsApi();
 $response = $api->store($contact);
 
-if (!$response->failed()) {
-    // request failed
-}
-
 var_dump(
     $response->json()
 );
 ```
 
-This also means you will get back DTO entities from the Sellsy API when performing GET requests : 
+This also mean you will get back DTO entities from the Sellsy API when performing GET requests : 
 
 ```php
 $api = new Bluerock\Sellsy\Api\CompaniesApi();
@@ -71,9 +67,9 @@ $company = $api->find("123")->entity();
 $companies = $api->index()->entities();
 ```
 
-If you're unfamiliar with DTOs or need more details, make sure to have a look at the [spatie/data-transfer-object](https://github.com/spatie/data-transfer-object) package, used by this client.
+If you're unfamiliar with DTOs or need some documentation on it, make sure to have a look at the [spatie/data-transfer-object](https://github.com/spatie/data-transfer-object) package, used by this client.
 
-Please keep in mind that this package is still in development process. If you're missing an [endpoint implementation](#dev_status), do not hesitate to [contribute](#contribute) or open an issue on this repository.
+Please keep in mind that this package is still in development. If you're missing an [endpoint implementation](#dev_status), do not hesitate to [contribute](#contribute) or open an issue on this repository.
 
 ## Installation
 <a name="installation"></a>
@@ -119,7 +115,7 @@ Learn more about Sellsy API v2 credentials on the [official documentation](https
 ### The basics
 <a name="usage_query_basic"></a>
 
-Each API domain is represented by a plurialized class (eg: `Contacts`, `Items`, `Taxes`). Each class contains methods used to perform requests agaisn't domain endpoints.  
+Each API domain is represented by a plurialized class (eg: `Contacts`, `Items`, `Taxes`). Each class contains methods used to perform requests agaisn't the domain's endpoints.  
 
 The easiest way to start querying the API is by initializing the corresponding class :  
 
@@ -160,9 +156,9 @@ This client is using the Laravel CRUD operations keywords to name methods :
 | DELETE | `destroy` | Delete a single resource. |   
 | GET | `search` | Search resources. |   
 
-Any additional method available in Sellsy API would follow the camel case convention. For example, additional Companies methods would look like this : 
+Any additional method described in the domain's documentation would follow the camel case convention. For example, additional [Companies](https://api.sellsy.com/doc/v2/#tag/Companies) methods would look like this : 
 
-| Sellsy Company operation | Client Method |  
+| Operation | Client Method |  
 |---|---|  
 | Get a company address. | `CompaniesApi::showAddress(...)` |  
 | Update a company address. | `CompaniesApi::updateAddress(...)` |  
