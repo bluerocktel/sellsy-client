@@ -448,7 +448,7 @@ $contactsApi->delete(123)->json();
 | **Prospection** | PhoneCalls | 🅾️ |  
 | **Prospection** | CRM Activities | 🅾️ |  
 | **Prospection** | Estimates | 🅾️ |  
-| **Catalog** | Items | 🅾️ |  
+| **Catalog** | Items | 🆚️ |  
 | **Catalog** | Units | ✅ |  
 | **Catalog** | Taxes | ✅ |  
 | **Invoicing** | Accounting | 🅾️ |  
