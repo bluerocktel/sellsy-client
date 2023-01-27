@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="1.1.1"></a>
+## 1.1.1 (2023-01-27)
+
+### Removed
+
+- 🔇 Change log [[d3a7a40](https://github.com/bluerocktel/sellsy-client/commit/d3a7a40bacda8804bf146d13e3b3500aec349c42)]
+
+### Miscellaneous
+
+- 📝 Update styling in doc [[167478c](https://github.com/bluerocktel/sellsy-client/commit/167478ccdca2e7b731484ef90141b937dd0245f9)]
+-  Merge pull request [#1](https://github.com/bluerocktel/sellsy-client/issues/1) from cedricWebsenso/main [[de25a13](https://github.com/bluerocktel/sellsy-client/commit/de25a135b1dec4b2c1979441d04c3c2d3f19bdb2)]
+-  Readme update [[0de3649](https://github.com/bluerocktel/sellsy-client/commit/0de364957747052e7531eae6704aaa3009f9bdc1)]
+-  Beta - Add Item entity, collection and API client for items ns [[8e2fbf7](https://github.com/bluerocktel/sellsy-client/commit/8e2fbf7e084326dec7c1f5c456d622f84f113275)]
+
+
 <a name="1.1.0"></a>
 ## 1.1.0 (2023-01-19)
 
