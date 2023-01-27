@@ -199,21 +199,24 @@ By default, the Request will throw a `\Illuminate\Http\Client\RequestException` 
 
 ```php
 /**
- * @return \Bluerock\Sellsy\Models\Contact|false
+ * @return \Bluerock\Sellsy\Entities\Contact|false
  * @throws \Illuminate\Http\Client\RequestException
  */
 public function maybeFindMyContact($contact_id)
 {
     try {
-        return Bluerock\Sellsy\Core\Client::contacts()->show($contact_id)->entity();
+        return Bluerock\Sellsy\Core\Client::contacts()
+                    ->show($contact_id)
+                    ->entity();
 
-        # catch the RequestException and return false if the contact is not found.
+      # catch the RequestException
     } catch (\Illuminate\Http\Client\RequestException $e) {
+        # return false if the contact is not found (404 error).
         if ($e->response->status() === 404) {
           return false;
         }
 
-        throw $e;
+      throw $e;
     }
 }
 ```
