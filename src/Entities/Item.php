@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Entities\Unit;
 /**
  * The Item Entity.
  *
- * @package cedricWebsenso/sellsy-client
+ * @package bluerock/sellsy-client
  * @author Cédric <cedric@websenso.com>
  * @version 1.0
  * @access public
