@@ -450,9 +450,10 @@ $contactsApi->delete(123)->json();
 | **Catalog** | Units | ✅ |  
 | **Catalog** | Taxes | ✅ |  
 | **Invoicing** | Accounting | 🅾️ |  
+| **Invoicing** | Rate Categories | ✅ |  
 | **Invoicing** | Purchase (OCR) | 🅾️ |  
 | **Invoicing** | Payments | 🅾️ |  
-| **Invoicing** | Invoices | 🅾️ |  
+| **Invoicing** | Invoices | 🆚️ |  
 | **Invoicing** | Credit Notes | 🅾️ |  
 | **Account** | Currencies | 🅾️ |  
 | **Account** | Custom Fields | 🅾️ |  
