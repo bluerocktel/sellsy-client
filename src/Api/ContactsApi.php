@@ -2,6 +2,7 @@
 
 namespace Bluerock\Sellsy\Api;
 
+use Illuminate\Support\Arr;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contact;
 use Bluerock\Sellsy\Collections\ContactCollection;
@@ -33,7 +34,7 @@ class ContactsApi extends AbstractApi
      *
      * @param array $query Query parameters.
      *
-     * @return \Illuminate\Http\Client\Response
+     * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/get-contacts
      */
     public function index(array $query = []): Response
@@ -121,6 +122,26 @@ class ContactsApi extends AbstractApi
                         ->request("contacts/{$id}")
                         ->delete();
         
+        return $this->prepareResponse($response);
+    }
+
+    /**
+     * Search contacts with some filters.
+     *
+     * @param array $query    Query parameters.
+     * @param array $filters  Filters to use.
+     *
+     * @return \Bluerock\Sellsy\Core\Response
+     * @see https://api.sellsy.com/doc/v2/#operation/search-contacts
+     */
+    public function search(array $query = [], array $filters = []): Response
+    {
+        $response = $this->connection
+                        ->request('contacts/search' . '?' . Arr::query($query))
+                        ->post(
+                            compact('filters')
+                        );
+
         return $this->prepareResponse($response);
     }
 }
