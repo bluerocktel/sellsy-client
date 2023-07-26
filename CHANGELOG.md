@@ -1,5 +1,31 @@
 # Changelog
 
+<a name="1.2.1"></a>
+## 1.2.1 (2023-07-25)
+
+### Added
+
+- ✨ Add Phone call and staff API [[4776ced](https://github.com/bluerocktel/sellsy-client/commit/4776ced05d7a8e4911365dd63bb126a97efd6b82)]
+- ✨ Added search endpoint to Contacts api [[f1ab567](https://github.com/bluerocktel/sellsy-client/commit/f1ab5672b6c4e683e6003b0426751e78c6352d12)]
+
+
+<a name="1.2.0"></a>
+## 1.2.0 (2023-04-19)
+
+### Added
+
+- ✨ allow illuminate v9 dependencies [[90eb534](https://github.com/bluerocktel/sellsy-client/commit/90eb534b12a6110ef785531f5803ede51ef1d1fc)]
+- ✨ Add Rate Category namespace [[a31a430](https://github.com/bluerocktel/sellsy-client/commit/a31a4307d8a9cc238c1642d531a71f2613f72410)]
+
+### Miscellaneous
+
+-  Merge branch &#x27;dev-1.x&#x27; [[e50a911](https://github.com/bluerocktel/sellsy-client/commit/e50a91160ff83bbd6aa1d6035581e146a2e78cc4)]
+- 🚧 Start implementing Invoice API [[f98417d](https://github.com/bluerocktel/sellsy-client/commit/f98417d0d3129c39c8b10dc64b8124ef49c93832)]
+-  Merge pull request [#2](https://github.com/bluerocktel/sellsy-client/issues/2) from mazsudo/allow-illu-9 [[081b11b](https://github.com/bluerocktel/sellsy-client/commit/081b11b5eb6b06b1004f1ebbbf797367d8ec273b)]
+- 📝 Update readme [[9b03877](https://github.com/bluerocktel/sellsy-client/commit/9b03877606572ef416c9ef3fc5f33f840d9f4b84)]
+- 📝 Update exception handling example in readme [[5387972](https://github.com/bluerocktel/sellsy-client/commit/538797272accdd7ddf112f8cb0a52b9227f47cc9)]
+
+
 <a name="1.1.1"></a>
 ## 1.1.1 (2023-01-27)
 
