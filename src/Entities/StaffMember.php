@@ -39,8 +39,11 @@ class StaffMember extends Entity
     public ?string $position;
 
     public ?int $profile;
-    
-    public ?int $team; // staff team, -1 for any team
+
+    /**
+     * @var int|array|null $team
+     */
+    public $team; // staff team, -1 for any team
 
     public ?int $job; // staff job, -1 for any job
 
