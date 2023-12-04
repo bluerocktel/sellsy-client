@@ -2,7 +2,6 @@
 
 namespace Bluerock\Sellsy\Api;
 
-use Illuminate\Support\Arr;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\PhoneCall;
 use Bluerock\Sellsy\Collections\PhoneCallCollection;
@@ -12,7 +11,7 @@ use Bluerock\Sellsy\Collections\PhoneCallCollection;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.2.1
+ * @version 1.2.3
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/PhoneCalls
  */
@@ -85,7 +84,7 @@ class PhoneCallsApi extends AbstractApi
         $response = $this->connection
                         ->request('phone-calls')
                         ->post(array_filter($body + compact('result')) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -110,7 +109,7 @@ class PhoneCallsApi extends AbstractApi
         $response = $this->connection
                         ->request("phone-calls/{$phoneCall->id}")
                         ->put(array_filter($body + compact('result')) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -127,7 +126,7 @@ class PhoneCallsApi extends AbstractApi
         $response = $this->connection
                         ->request("phone-calls/{$id}")
                         ->delete();
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -143,10 +142,8 @@ class PhoneCallsApi extends AbstractApi
     public function search(array $query = [], array $filters = []): Response
     {
         $response = $this->connection
-                        ->request('phone-calls/search' . '?' . Arr::query($query))
-                        ->post(
-                            compact('filters')
-                        );
+                        ->request($this->appendQuery('phone-calls/search', $query))
+                        ->post(compact('filters'));
 
         return $this->prepareResponse($response);
     }

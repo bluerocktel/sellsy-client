@@ -11,7 +11,7 @@ use Bluerock\Sellsy\Collections\ItemCollection;
  *
  * @package bluerock/sellsy-client
  * @author Cédric <cedric@websenso.com>
- * @version 1.0
+ * @version 1.2.3
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Items
  */
@@ -75,13 +75,13 @@ class ItemsApi extends AbstractApi
     public function store(Item $item, array $query = []): Response
     {
         $body = $item->except('id')
-                        ->except('owner')
-                        ->toArray();
+                    ->except('owner')
+                    ->toArray();
 
         $response = $this->connection
                         ->request('items')
                         ->post(array_filter($body) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -102,8 +102,10 @@ class ItemsApi extends AbstractApi
 
         $response = $this->connection
                         ->request("items/{$item->id}")
-                        ->put(array_filter($body) + $query);
-        
+                        ->put(
+                            array_filter($body) + $query
+                        );
+
         return $this->prepareResponse($response);
     }
 
@@ -120,7 +122,7 @@ class ItemsApi extends AbstractApi
         $response = $this->connection
                         ->request("items/{$id}")
                         ->delete();
-        
+
         return $this->prepareResponse($response);
     }
 }

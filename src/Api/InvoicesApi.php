@@ -11,7 +11,7 @@ use Bluerock\Sellsy\Core\Response;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.3
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Invoices
  */
@@ -59,6 +59,23 @@ class InvoicesApi extends AbstractApi
         $response = $this->connection
                         ->request("invoices/{$id}")
                         ->get($query);
+
+        return $this->prepareResponse($response);
+    }
+
+    /**
+     * Search for invoices using filters.
+     *
+     * @param array $query Query parameters.
+     *
+     * @return \Bluerock\Sellsy\Core\Response
+     * @see https://api.sellsy.com/doc/v2/#operation/search-companies
+     */
+    public function search(array $filters = [], array $query = []): Response
+    {
+        $response = $this->connection
+                        ->request($this->appendQuery('invoices/search', $query))
+                        ->post(compact('filters'));
 
         return $this->prepareResponse($response);
     }

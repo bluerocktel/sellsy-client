@@ -10,7 +10,7 @@ use Bluerock\Sellsy\Entities\InvoiceAmounts;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.3
  * @access public
  */
 class Invoice extends Entity
@@ -24,29 +24,62 @@ class Invoice extends Entity
      * <READONLY> Invoice number from Sellsy.
      */
     public ?string $number;
-    
-    /**
-     * Invoice status.
-     */
+
     public ?string $status;
-    
-    /**
-     * Invoice date.
-     */
+
     public ?string $date;
-    
-    /**
-     * Invoice due date.
-     */
+
     public ?string $due_date;
 
-    /**
-     * Invoice amounts.
-     */
     public ?InvoiceAmounts $amounts;
 
-    /**
-     * Rate category currency.
-     */
     public string $currency = 'EUR';
+
+    public ?array $related;
+
+    public ?array $public_link;
+
+    public ?string $pdf_link;
+
+    public ?array $taxes;
+
+    public ?int $discount;
+
+    public ?int $fiscal_year_id;
+
+    public ?string $subject;
+
+    public ?string $note;
+
+    public ?string $order_reference;
+
+    public ?int $assigned_staff_id;
+
+    public ?int $invoicing_address_id;
+
+    public ?int $delivery_address_id;
+
+    public ?array $decimal_number;
+
+    public ?int $contact_id;
+
+    public ?int $rate_category_id;
+
+    public ?array $service_dates;
+
+    public ?array $payment_conditions_acceptance;
+
+    public bool $is_deposit = false;
+
+    public ?int $subscription_id;
+
+    /**
+     * <READONLY> Client creates date from Sellsy.
+     */
+    public ?string $created;
+
+    /**
+     * <READONLY> Client owner from Sellsy.
+     */
+    public ?array $owner;
 }

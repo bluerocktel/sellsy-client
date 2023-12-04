@@ -2,7 +2,6 @@
 
 namespace Bluerock\Sellsy\Api;
 
-use Illuminate\Support\Arr;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contact;
 use Bluerock\Sellsy\Collections\ContactCollection;
@@ -12,7 +11,7 @@ use Bluerock\Sellsy\Collections\ContactCollection;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.3
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Contacts
  */
@@ -82,7 +81,7 @@ class ContactsApi extends AbstractApi
         $response = $this->connection
                         ->request('contacts')
                         ->post(array_filter($body) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -104,7 +103,7 @@ class ContactsApi extends AbstractApi
         $response = $this->connection
                         ->request("contacts/{$contact->id}")
                         ->put(array_filter($body) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -121,7 +120,7 @@ class ContactsApi extends AbstractApi
         $response = $this->connection
                         ->request("contacts/{$id}")
                         ->delete();
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -137,10 +136,8 @@ class ContactsApi extends AbstractApi
     public function search(array $query = [], array $filters = []): Response
     {
         $response = $this->connection
-                        ->request('contacts/search' . '?' . Arr::query($query))
-                        ->post(
-                            compact('filters')
-                        );
+                        ->request($this->appendQuery('contacts/search', $query))
+                        ->post(compact('filters'));
 
         return $this->prepareResponse($response);
     }

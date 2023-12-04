@@ -22,23 +22,23 @@ abstract class Client extends Entity
         Attributes\Addresses,
         Attributes\ContactInfos,
         Attributes\SmartTags;
-    
+
     /**
      * <READONLY> Client ID from Sellsy.
      */
     public ?int $id;
-    
+
     /**
      * Client type.
      * May be client, prospect..
      */
     public ?string $type;
-    
+
     /**
      * Client reference.
      */
     public ?string $reference;
-    
+
     /**
      * Note on client.
      */
@@ -48,42 +48,42 @@ abstract class Client extends Entity
      * Client auxiliary code.
      */
     public ?string $auxiliary_code;
-    
+
     /**
      * Client socials.
      */
     public ?Socials $social;
-    
+
     /**
      * Client rate category id.
      */
     public ?int $rate_category_id;
-    
+
     /**
      * Client accounting code id.
      */
     public ?int $accounting_code_id;
-    
+
     /**
      * Client accounting purchase code id.
      */
     public ?int $accounting_purchase_code_id;
-    
+
     /**
      * Status archived or not.
      */
     public bool $is_archived = false;
-    
+
     /**
      * <READONLY> Client main contact ID from Sellsy.
      */
     public ?int $main_contact_id;
-    
+
     /**
      * <READONLY> Client main dunning ID from Sellsy.
      */
     public ?int $dunning_contact_id;
-    
+
     /**
      * <READONLY> Client invoicing contact ID from Sellsy.
      */
@@ -103,12 +103,12 @@ abstract class Client extends Entity
      * <READONLY> Client invoicing contact entity.
      */
     public ?Contact $invoicing_contact;
-    
+
     /**
      * <READONLY> Client creates date from Sellsy.
      */
     public ?string $created;
-    
+
     /**
      * <READONLY> Client owner from Sellsy.
      */

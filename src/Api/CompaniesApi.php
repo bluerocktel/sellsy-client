@@ -11,7 +11,7 @@ use Bluerock\Sellsy\Core\Response;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.3
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Companies
  */
@@ -103,7 +103,7 @@ class CompaniesApi extends AbstractApi
         $response = $this->connection
                         ->request("companies/{$company->id}")
                         ->put(array_filter($body) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -120,12 +120,12 @@ class CompaniesApi extends AbstractApi
         $response = $this->connection
                         ->request("companies/{$id}")
                         ->delete();
-        
+
         return $this->prepareResponse($response);
     }
 
     /**
-     * Search for companie using filters.
+     * Search for companies using filters.
      *
      * @param array $query Query parameters.
      *
@@ -135,8 +135,8 @@ class CompaniesApi extends AbstractApi
     public function search(array $filters = [], array $query = []): Response
     {
         $response = $this->connection
-                        ->request('companies/search')
-                        ->post(compact('filters') + $query);
+                        ->request($this->appendQuery('companies/search', $query))
+                        ->post(compact('filters'));
 
         return $this->prepareResponse($response);
     }

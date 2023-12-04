@@ -9,7 +9,7 @@ use Bluerock\Sellsy\Entities\Entity;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.2.1
+ * @version 1.2.3
  * @access public
  */
 class StaffMember extends Entity
@@ -25,7 +25,7 @@ class StaffMember extends Entity
     public ?string $email;
 
     public ?string $avatar;
-    
+
     public ?string $status;
 
     public ?string $phone_number;
@@ -45,7 +45,7 @@ class StaffMember extends Entity
      */
     public $team; // staff team, -1 for any team
 
-    public ?int $job; // staff job, -1 for any job
+    public ?array $job; // staff job, -1 for any job
 
     public ?string $timezone; // eg: "Europe/Paris"
 

@@ -11,7 +11,7 @@ use Bluerock\Sellsy\Core\Response;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.3
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Individuals
  */
@@ -81,7 +81,7 @@ class IndividualsApi extends AbstractApi
         $response = $this->connection
                         ->request('individuals')
                         ->post(array_filter($body) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -103,7 +103,7 @@ class IndividualsApi extends AbstractApi
         $response = $this->connection
                         ->request("individuals/{$individual->id}")
                         ->put(array_filter($body) + $query);
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -120,7 +120,7 @@ class IndividualsApi extends AbstractApi
         $response = $this->connection
                         ->request("individuals/{$id}")
                         ->delete();
-        
+
         return $this->prepareResponse($response);
     }
 
@@ -135,7 +135,7 @@ class IndividualsApi extends AbstractApi
     public function search(array $filters = [], array $query = []): Response
     {
         $response = $this->connection
-                        ->request('individuals/search')
+                        ->request($this->appendQuery('individuals/search', $query))
                         ->post(compact('filters') + $query);
 
         return $this->prepareResponse($response);

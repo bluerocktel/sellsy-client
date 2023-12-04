@@ -2,6 +2,7 @@
 
 namespace Bluerock\Sellsy\Api;
 
+use Illuminate\Support\Arr;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Core\Connection;
 use Bluerock\Sellsy\Core\RelatedEntity;
@@ -12,7 +13,7 @@ use Bluerock\Sellsy\Core\RelatedEntity;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.3
  * @access public
  */
 abstract class AbstractApi
@@ -48,7 +49,7 @@ abstract class AbstractApi
 
     /**
      * Parse the response.
-     * 
+     *
      * @return \Bluerock\Sellsy\Core\Response
      */
     protected function prepareResponse(Response $response): Response
@@ -60,5 +61,18 @@ abstract class AbstractApi
         $response->throw();
 
         return $response;
+    }
+
+    /**
+     * Append query to the given URL path.
+     *
+     * @return string
+     */
+    protected function appendQuery(string $path, array $query = []): string
+    {
+        return trim(
+            $path .'?'. Arr::query($query),
+            '?'
+        );
     }
 }
