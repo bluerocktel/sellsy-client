@@ -18,17 +18,17 @@ class Individual extends Client
     /**
      * Individual last name.
      */
-    public string $last_name;
+    public ?string $last_name;
 
     /**
      * Individual first name.
      */
-    public string $first_name;
+    public ?string $first_name;
 
     /**
      * Individual civility.
      */
-    public string $civility;
+    public ?string $civility;
 
     public function addresses(): Api\IndividualAddressesApi
     {

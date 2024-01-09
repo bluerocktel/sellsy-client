@@ -18,12 +18,12 @@ class Company extends Client
     /**
      * Company name.
      */
-    public string $name;
+    public ?string $name;
 
     /**
      * Company Legal infomation (france format).
      */
-    public LegalFrance $legal_france;
+    public ?LegalFrance $legal_france;
 
     /**
      * Company capital.
