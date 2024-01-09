@@ -104,7 +104,8 @@ class Response
     public function json(): ?array
     {
         $data = $this->resp->json();
-
+		if (null === $data)
+			return $data;
         if (isset($data['data'])) {
             $data['data'] = array_map([$this, 'parseEmbed'], $data['data']);
         }
