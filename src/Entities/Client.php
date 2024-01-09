@@ -2,9 +2,10 @@
 
 namespace Bluerock\Sellsy\Entities;
 
+use Bluerock\Sellsy\Entities\Entity;
 use Bluerock\Sellsy\Entities\Contact;
 use Bluerock\Sellsy\Entities\Attributes;
-use Bluerock\Sellsy\Entities\Entity;
+use Bluerock\Sellsy\Entities\Contracts;
 
 /**
  * The Client Entity.
@@ -15,7 +16,7 @@ use Bluerock\Sellsy\Entities\Entity;
  * @version 1.1
  * @access public
  */
-abstract class Client extends Entity
+abstract class Client extends Entity implements Contracts\HasAddresses
 {
     use Attributes\Acl,
         Attributes\Statistics,

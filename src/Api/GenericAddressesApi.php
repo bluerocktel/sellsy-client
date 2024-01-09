@@ -4,10 +4,9 @@ namespace Bluerock\Sellsy\Api;
 
 use Illuminate\Support\Str;
 use Bluerock\Sellsy\Core\Response;
-use Bluerock\Sellsy\Entities\Client;
 use Bluerock\Sellsy\Entities\Address;
-use Bluerock\Sellsy\Entities\Contact;
 use Bluerock\Sellsy\Collections\AddressCollection;
+use Bluerock\Sellsy\Entities\Contracts\HasAddresses;
 
 /**
  * The API client for the `addresses` namespace.
@@ -20,7 +19,7 @@ use Bluerock\Sellsy\Collections\AddressCollection;
 class GenericAddressesApi extends AbstractApi
 {
 	/**
-	 * @var Client|Contact The related entity owning the address.
+	 * @var HasAddresses The related entity owning the address.
 	 */
 	protected $relatedEntity;
 
@@ -30,10 +29,10 @@ class GenericAddressesApi extends AbstractApi
 	protected $endpoint;
 
     /**
-	 * @param Client|Contact $relatedEntity	The related entity owning the address.
+	 * @param HasAddresses $relatedEntity   related entity owning the address.
      * @inheritdoc
      */
-    public function __construct(Client|Contact $relatedEntity)
+    public function __construct(HasAddresses $relatedEntity)
     {
         parent::__construct();
 
