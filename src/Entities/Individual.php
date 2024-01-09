@@ -2,6 +2,8 @@
 
 namespace Bluerock\Sellsy\Entities;
 
+use Bluerock\Sellsy\Api;
+
 /**
  * The Individual Entity.
  * This entity extends the generic "Client" entity, used also for Companies.
@@ -12,7 +14,7 @@ namespace Bluerock\Sellsy\Entities;
  * @access public
  */
 class Individual extends Client
-{   
+{
     /**
      * Individual last name.
      */
@@ -22,9 +24,14 @@ class Individual extends Client
      * Individual first name.
      */
     public string $first_name;
-    
+
     /**
      * Individual civility.
      */
     public string $civility;
+
+    public function addresses(): Api\IndividualAddressesApi
+    {
+        return new Api\IndividualAddressesApi($this);
+    }
 }

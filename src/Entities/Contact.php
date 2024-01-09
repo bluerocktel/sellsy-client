@@ -5,6 +5,7 @@ namespace Bluerock\Sellsy\Entities;
 use Bluerock\Sellsy\Entities\Socials;
 use Bluerock\Sellsy\Entities\Attributes;
 use Bluerock\Sellsy\Entities\Entity;
+use Bluerock\Sellsy\Api;
 
 /**
  * The Contact Entity.
@@ -41,49 +42,54 @@ class Contact extends Entity
      * Contact name.
      */
     public ?string $last_name;
-    
+
     /**
      * Contact job.
      */
     public ?string $position;
-    
+
     /**
      * Contact birth date.
      */
     public ?string $birth_date;
-    
+
     /**
      * Contact avatar URL.
      */
     public ?string $avatar;
-    
+
     /**
      * Note on contact.
      */
     public string $note = '';
-    
+
     /**
      * Contact socials.
      */
     public ?Socials $social;
-    
+
     /**
      * Contact synchronisation to turn on or off.
      */
     public ?ContactSync $sync;
-    
+
     /**
      * Status archived or not.
      */
     public bool $is_archived = false;
-    
+
     /**
      * <READONLY> Contact creates date from Sellsy.
      */
     public ?string $created;
-    
+
     /**
      * <READONLY> Contact owner from Sellsy.
      */
     public ?array $owner;
+
+    public function addresses(): Api\ContactAddressesApi
+    {
+        return new Api\ContactAddressesApi($this);
+    }
 }

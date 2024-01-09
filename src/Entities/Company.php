@@ -2,6 +2,8 @@
 
 namespace Bluerock\Sellsy\Entities;
 
+use Bluerock\Sellsy\Api;
+
 /**
  * The Company Entity.
  * This entity extends the generic "Client" entity, used also for Individuals.
@@ -17,7 +19,7 @@ class Company extends Client
      * Company name.
      */
     public string $name;
-    
+
     /**
      * Company Legal infomation (france format).
      */
@@ -32,9 +34,14 @@ class Company extends Client
      * Company business segment.
      */
     public ?array $business_segment;
-    
+
     /**
      * Number of employees of company.
      */
     public ?array $number_of_employees;
+
+    public function addresses(): Api\CompanyAddressesApi
+    {
+        return new Api\CompanyAddressesApi($this);
+    }
 }
