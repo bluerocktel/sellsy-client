@@ -15,7 +15,7 @@ use Illuminate\Support\Fluent;
  *
  * @package bluerock/sellsy-client
  * @author Thomas <thomas@bluerocktel.com>
- * @version 1.1
+ * @version 1.2.4
  * @access public
  */
 class Response
@@ -26,14 +26,14 @@ class Response
      * @var \Illuminate\Http\Client\Response
      */
     protected IlluminateResponse $resp;
-    
+
     /**
      * The realted DTO entity.
      *
      * @var RelatedEntity
      */
     protected ?RelatedEntity $related;
-    
+
     /**
      * The response body as a Fluent object.
      *
@@ -66,7 +66,7 @@ class Response
 
     /**
      * Set the related DTO entity.
-     * 
+     *
      * @param RelatedEntity $related
      * @return self
      */
@@ -75,10 +75,10 @@ class Response
         $this->related = $related;
         return $this;
     }
-    
+
     /**
      * Get the related DTO entity.
-     * 
+     *
      * @return ?RelatedEntity
      */
     public function getRelatedEntity(): ?RelatedEntity
@@ -88,7 +88,7 @@ class Response
 
     /**
      * Get the base response from the HTTP Client.
-     * 
+     *
      * @return \Illuminate\Http\Client\Response
      */
     public function base(): IlluminateResponse
@@ -104,15 +104,18 @@ class Response
     public function json(): ?array
     {
         $data = $this->resp->json();
-		if (null === $data)
-			return $data;
+
+        if ($data === null) {
+            return null;
+        }
+
         if (isset($data['data'])) {
             $data['data'] = array_map([$this, 'parseEmbed'], $data['data']);
         }
 
         return $this->parseEmbed($data);
     }
-    
+
     /**
      * Parse embed fields.
      *
@@ -127,7 +130,7 @@ class Response
 
         return $data;
     }
-    
+
     /**
      * Get the entity bundled in the response.
      *
@@ -149,7 +152,7 @@ class Response
 
         return $this->related->newEntity($this->body->toArray());
     }
-    
+
     /**
      * Get the last request parsed entity.
      *
@@ -171,7 +174,7 @@ class Response
 
         return $this->related->newCollection($this->body->data);
     }
-    
+
     /**
      * Get the response pagination entity if present in the body.
      *

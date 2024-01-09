@@ -11,7 +11,7 @@ use Spatie\DataTransferObject\DataTransferObjectCollection;
  *
  * @package bluerock/sellsy-client
  * @author Jérémie <jeremie@kiwik.com>
- * @version 1.0
+ * @version 1.2.4
  * @access public
  *
  * @method \Bluerock\Sellsy\Entities\Address current

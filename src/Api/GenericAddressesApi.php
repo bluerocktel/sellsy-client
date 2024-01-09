@@ -2,60 +2,51 @@
 
 namespace Bluerock\Sellsy\Api;
 
+use Illuminate\Support\Str;
 use Bluerock\Sellsy\Core\Response;
-use Bluerock\Sellsy\Entities\Address;
 use Bluerock\Sellsy\Entities\Client;
-use Bluerock\Sellsy\Entities\Company;
+use Bluerock\Sellsy\Entities\Address;
 use Bluerock\Sellsy\Entities\Contact;
-use Bluerock\Sellsy\Entities\Entity;
-use Bluerock\Sellsy\Exceptions\ApiClientErrorException;
+use Bluerock\Sellsy\Collections\AddressCollection;
 
 /**
  * The API client for the `addresses` namespace.
  *
  * @package bluerock/sellsy-client
  * @author Jérémie <jeremie@kiwik.com>
- * @version 1.2.3
- * @access public
- * @see https://api.sellsy.com/doc/v2/#tag/Companies
+ * @author Thomas <thomas@bluerocktel.com>
+ * @version 1.2.4
  */
 class GenericAddressesApi extends AbstractApi
 {
 	/**
-	 * @var Client 	entity containing addresses
+	 * @var Client|Contact The related entity owning the address.
 	 */
-	protected $parentEntity;
-
+	protected $relatedEntity;
 
 	/**
-	 * @var string entity type (Sellsy api endpoint)
+	 * @var string The related entity base endpoint.
 	 */
-	protected $sellsyEntityType;
-
+	protected $endpoint;
 
     /**
-     * The Api class constructor, setting up common tools.
-	 * Package:
-	 * bluerock/sellsy-client
-	 *
-	 * @param Entiyt	The parent entity
+	 * @param Client|Contact $relatedEntity	The related entity owning the address.
+     * @inheritdoc
      */
-    public function __construct(Entity $parentEntity)
+    public function __construct(Client|Contact $relatedEntity)
     {
         parent::__construct();
 
-		// Only clients witch can hold addresses
-		if ($parentEntity instanceof Company) {
-			$this->sellsyEntityType = 'companies';
-		} elseif ($parentEntity instanceof Contact) {
-			$this->sellsyEntityType = 'contacts';
-		} elseif ($parentEntity instanceof Individual) {
-			$this->sellsyEntityType = 'individuals';
-		} else {
-			throw new ApiClientErrorException(\sprintf('%s class not implemented. Can\'t have addresses?', \get_class($parentEntity)));
-		}
+        $endpoint = Str::of(get_class($relatedEntity))
+            ->afterLast('\\')
+            ->lower()
+            ->plural();
+
+        $this->entity     = Address::class;
         $this->collection = AddressCollection::class;
-		$this->parentEntity = $parentEntity;
+
+        $this->endpoint = (string) $endpoint;
+        $this->relatedEntity = $relatedEntity;
     }
 
     /**
@@ -71,7 +62,7 @@ class GenericAddressesApi extends AbstractApi
     public function index(array $query = []): Response
     {
         $response = $this->connection
-                        ->request("{$this->sellsyEntityType}/{$this->parentEntity->id}/addresses")
+                        ->request("{$this->endpoint}/{$this->relatedEntity->id}/addresses")
                         ->get($query);
 
         return $this->prepareResponse($response);
@@ -92,7 +83,7 @@ class GenericAddressesApi extends AbstractApi
     public function show(string $id, array $query = []): Response
     {
         $response = $this->connection
-                        ->request("{$this->sellsyEntityType}/{$this->parentEntity->id}/addresses/{$id}")
+                        ->request("{$this->endpoint}/{$this->relatedEntity->id}/addresses/{$id}")
                         ->get($query);
 
         return $this->prepareResponse($response);
@@ -116,7 +107,7 @@ class GenericAddressesApi extends AbstractApi
                         ->toArray();
 
         $response = $this->connection
-                        ->request("{$this->sellsyEntityType}/{$this->parentEntity->id}/addresses")
+                        ->request("{$this->endpoint}/{$this->relatedEntity->id}/addresses")
                         ->post(array_filter($body) + $query);
 
         return $this->prepareResponse($response);
@@ -140,7 +131,7 @@ class GenericAddressesApi extends AbstractApi
                         ->toArray();
 
         $response = $this->connection
-                        ->request("{$this->sellsyEntityType}/{$this->parentEntity->id}/addresses/{$address->id}")
+                        ->request("{$this->endpoint}/{$this->relatedEntity->id}/addresses/{$address->id}")
                         ->put(array_filter($body) + $query);
 
         return $this->prepareResponse($response);
@@ -157,7 +148,7 @@ class GenericAddressesApi extends AbstractApi
     public function destroy(int $id): Response
     {
         $response = $this->connection
-                        ->request("{$this->sellsyEntityType}/{$this->parentEntity->id}/addresses/{$id}")
+                        ->request("{$this->endpoint}/{$this->relatedEntity->id}/addresses/{$id}")
                         ->delete();
 
         return $this->prepareResponse($response);
