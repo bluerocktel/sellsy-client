@@ -13,7 +13,7 @@ use Bluerock\Sellsy\Entities\Company;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Companies
  */
-class CompanyAddressesApi extends GenericAddressesApi
+class CompanyAddressesApi extends EntityAddressesApi
 {
     /**
 	 * @param Company $company The related company.

@@ -13,7 +13,7 @@ use Bluerock\Sellsy\Entities\Contact;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Contacts
  */
-class ContactAddressesApi extends GenericAddressesApi
+class ContactAddressesApi extends EntityAddressesApi
 {
     /**
 	 * @param Contact $contact The related contact.

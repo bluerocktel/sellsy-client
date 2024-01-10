@@ -16,7 +16,7 @@ use Bluerock\Sellsy\Entities\Contracts\HasAddresses;
  * @author Thomas <thomas@bluerocktel.com>
  * @version 1.2.4
  */
-class GenericAddressesApi extends AbstractApi
+class EntityAddressesApi extends AbstractApi
 {
 	/**
 	 * @var HasAddresses The related entity owning the address.
@@ -143,6 +143,8 @@ class GenericAddressesApi extends AbstractApi
      *
      * @return \Bluerock\Sellsy\Core\Response
      * @see https://api.sellsy.com/doc/v2/#operation/delete-company-address
+	 * @see https://api.sellsy.com/doc/v2/#operation/delete-contact-address
+	 * @see https://api.sellsy.com/doc/v2/#operation/delete-individual-address
      */
     public function destroy(int $id): Response
     {
