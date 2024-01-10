@@ -77,7 +77,8 @@ class EntityCustomFieldsApi extends AbstractApi
 	/**
 	 * Update a custom field value.
 	 *
-	 * @param CustomFieldValue $customFieldValue The custom field value to update.
+	 * @param CustomFieldValue $customFieldValue    The custom field value to update.
+	 * @param array  $query                         Query parameters.
 	 *
 	 * @return \Bluerock\Sellsy\Core\Response
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-company-custom-fields
@@ -89,12 +90,12 @@ class EntityCustomFieldsApi extends AbstractApi
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-order-custom-fields
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-credit-note-custom-fields
 	 */
-	public function update(CustomFieldValue $customFieldValue): Response
+	public function update(CustomFieldValue $customFieldValue, array $query = []): Response
 	{
 		$body = $customFieldValue->toArray();
 		$response = $this->connection
-			->request("{$this->endpoint}/{$this->relatedEntity->id}/custom-fields")
-			->put([ $body ]);
+			->request($this->appendQuery("{$this->endpoint}/{$this->relatedEntity->id}/custom-fields", $query))
+			->put([$body]);
 
 		return $this->prepareResponse($response);
 	}
@@ -102,7 +103,8 @@ class EntityCustomFieldsApi extends AbstractApi
 	/**
 	 * Update many fields at the same time (also works if you specify only one field)
 	 *
-	 * @param array[CustomFieldValue] $query    Query parameters
+	 * @param array[CustomFieldValue] $customFieldsValues   The CustomFieldValues to update
+	 * @param array  $query                                 Query parameters.
 	 *
 	 * @return \Bluerock\Sellsy\Core\Response
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-company-custom-fields
@@ -114,11 +116,11 @@ class EntityCustomFieldsApi extends AbstractApi
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-order-custom-fields
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-credit-note-custom-fields
 	 */
-	public function updateMany(array $query = []): Response
+	public function updateMany(array $customFieldsValues, array $query = []): Response
 	{
 		$response = $this->connection
-			->request("{$this->endpoint}/{$this->relatedEntity->id}/custom-fields")
-			->put($query);
+			->request($this->appendQuery("{$this->endpoint}/{$this->relatedEntity->id}/custom-fields", $query))
+			->put($customFieldsValues);
 
 		return $this->prepareResponse($response);
 	}
