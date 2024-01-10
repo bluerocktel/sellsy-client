@@ -16,7 +16,7 @@ use Bluerock\Sellsy\Entities\Contracts;
  * @version 1.1
  * @access public
  */
-abstract class Client extends Entity implements Contracts\HasAddresses
+abstract class Client extends Entity implements Contracts\HasAddresses, Contracts\HasCustomFields
 {
     use Attributes\Acl,
         Attributes\Statistics,

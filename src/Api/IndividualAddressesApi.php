@@ -13,7 +13,7 @@ use Bluerock\Sellsy\Entities\Individual;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Individuals
  */
-class IndividualAddressesApi extends GenericAddressesApi
+class IndividualAddressesApi extends EntityAddressesApi
 {
     /**
 	 * @param Individual $individual The related individual.

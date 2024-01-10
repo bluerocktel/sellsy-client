@@ -2,6 +2,7 @@
 
 namespace Bluerock\Sellsy\Entities;
 
+use Bluerock\Sellsy\Entities\Contracts;
 use Bluerock\Sellsy\Entities\Entity;
 use Bluerock\Sellsy\Entities\InvoiceAmounts;
 
@@ -13,7 +14,7 @@ use Bluerock\Sellsy\Entities\InvoiceAmounts;
  * @version 1.2.3
  * @access public
  */
-class Invoice extends Entity
+class Invoice extends Entity implements Contracts\HasCustomFields
 {
     /**
      * <READONLY> Invoice ID from Sellsy.
