@@ -49,10 +49,10 @@ class CustomField extends Entity
      */
     public ?int $rank;
 
-	/**
-	 * Group containing the custom field.
-	 */
-	public ?array $customfield_group;
+    /**
+     * Group containing the custom field.
+     */
+    public ?array $customfield_group;
 
     /**
      * Custom field type (ie: 'simple-text', ...).
@@ -64,14 +64,14 @@ class CustomField extends Entity
      */
     public ?array $parameters;
 
-	/**
-	 * List of objects the custom field can be used on
-	 */
-	public ?array $related;
+    /**
+     * List of objects the custom field can be used on
+     */
+    public ?array $related;
 
-	/**
-	 * Value
-	 */
-	public $value;
+    /**
+     * Value
+     */
+    public $value;
 
 }

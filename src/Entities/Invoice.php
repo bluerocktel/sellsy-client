@@ -16,6 +16,8 @@ use Bluerock\Sellsy\Entities\InvoiceAmounts;
  */
 class Invoice extends Entity implements Contracts\HasCustomFields
 {
+	use Concerns\CanManageCustomFields;
+
     /**
      * <READONLY> Invoice ID from Sellsy.
      */

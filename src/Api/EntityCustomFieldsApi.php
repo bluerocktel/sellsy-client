@@ -6,6 +6,7 @@ use Bluerock\Sellsy\Collections\CustomFieldCollection;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contracts\HasCustomFields;
 use Bluerock\Sellsy\Entities\CustomField;
+use Bluerock\Sellsy\Entities\CustomFieldValue;
 use Illuminate\Support\Str;
 
 /**
@@ -34,9 +35,10 @@ class EntityCustomFieldsApi extends AbstractApi
 	 * @param HasCustomFields $relatedEntity   related entity owning the custom fields.
 	 * @inheritdoc
 	 */
-	public function __construct(?HasCustomFields $relatedEntity = null)
+	public function __construct(HasCustomFields $relatedEntity)
 	{
 		parent::__construct();
+
 		$endpoint = Str::of(get_class($relatedEntity))
 			->afterLast('\\')
 			->lower()
@@ -75,8 +77,7 @@ class EntityCustomFieldsApi extends AbstractApi
 	/**
 	 * Update a custom field value.
 	 *
-	 * @param CustomField $customField The custom field to update.
-	 * @param array     $query     Query parameters: [ 'value' => new_value ]
+	 * @param CustomFieldValue $customFieldValue The custom field value to update.
 	 *
 	 * @return \Bluerock\Sellsy\Core\Response
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-company-custom-fields
@@ -88,14 +89,12 @@ class EntityCustomFieldsApi extends AbstractApi
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-order-custom-fields
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-credit-note-custom-fields
 	 */
-	public function update(CustomField $customField, array $query = []): Response
+	public function update(CustomFieldValue $customFieldValue): Response
 	{
-		$body = [
-			'id' => $customField->id
-		];
+		$body = $customFieldValue->toArray();
 		$response = $this->connection
 			->request("{$this->endpoint}/{$this->relatedEntity->id}/custom-fields")
-			->put([ $body + $query ]);
+			->put([ $body ]);
 
 		return $this->prepareResponse($response);
 	}
@@ -103,7 +102,7 @@ class EntityCustomFieldsApi extends AbstractApi
 	/**
 	 * Update many fields at the same time (also works if you specify only one field)
 	 *
-	 * @param array   $query   Query parameters : [ [ 'id' => 'custom_field_id', 'value => 'new_value'], ... ] )
+	 * @param array[CustomFieldValue] $query    Query parameters
 	 *
 	 * @return \Bluerock\Sellsy\Core\Response
 	 * @see https://api.sellsy.com/doc/v2/#operation/update-company-custom-fields

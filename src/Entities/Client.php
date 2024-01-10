@@ -22,7 +22,8 @@ abstract class Client extends Entity implements Contracts\HasAddresses, Contract
         Attributes\Statistics,
         Attributes\Addresses,
         Attributes\ContactInfos,
-        Attributes\SmartTags;
+        Attributes\SmartTags,
+        Concerns\CanManageCustomFields;
 
     /**
      * <READONLY> Client ID from Sellsy.
