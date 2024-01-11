@@ -56,6 +56,7 @@ class Config
 	public static function switchInstance(string $sellsy_account = '')
 	{
 		static::$_instance_name = $sellsy_account;
+		return static::getInstance();
 	}
 
 
