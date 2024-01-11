@@ -39,7 +39,6 @@ class EntityFavouriteFiltersApi extends AbstractApi
 			->lower()
 			->plural();
 		$this->endpoint = (string) $endpoint;
-echo "{$this->endpoint}/favourite-filters\n";
 
 		$this->entity     = FavouriteFilter::class;
 		$this->collection = FavouriteFilterCollection::class;
