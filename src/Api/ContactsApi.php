@@ -15,8 +15,10 @@ use Bluerock\Sellsy\Collections\ContactCollection;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Contacts
  */
-class ContactsApi extends AbstractApi
+class ContactsApi extends AbstractApi implements Contracts\HasFavouriteFiltersApi
 {
+	use Concerns\CanManageFavouriteFiltersApi;
+
     /**
      * @inheritdoc
      */
@@ -141,4 +143,23 @@ class ContactsApi extends AbstractApi
 
         return $this->prepareResponse($response);
     }
+
+
+	/**
+	 * Get companies of the contact by id.
+	 *
+	 * @param string $id     The contact id to use.
+	 * @param array  $query  Query parameters.
+	 *
+	 * @return \Bluerock\Sellsy\Core\Response
+	 * @see https://api.sellsy.com/doc/v2/#operation/get-contact-companies
+	 */
+	public function companies(string $id, array $query = []): Response
+	{
+		$response = $this->connection
+			->request("contacts/{$id}/companies")
+			->get($query);
+
+		return $this->prepareResponse($response);
+	}
 }

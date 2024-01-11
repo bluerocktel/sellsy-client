@@ -51,7 +51,7 @@ class Response
         $this->resp    = $resp;
         $this->related = $related;
 
-        $this->body = new Fluent($this->json());
+        $this->body = new Fluent($this->json() ?? []);
     }
 
     /**

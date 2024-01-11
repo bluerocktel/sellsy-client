@@ -11,15 +11,15 @@ use Bluerock\Sellsy\Api;
  * @version 1.2.4
  * @access public
  */
-trait CanManageCustomFields
+trait CanManageContacts
 {
 	/**
-	 * Give the associated custom fields
+	 * Give the associated contacts API
 	 *
-	 * @return Api\EntityCustomFieldsApi
+	 * @return Api\EntityContactsApi
 	 */
-	public function customFields(): Api\EntityCustomFieldsApi
+	public function contacts(): Api\EntityContactsApi
 	{
-		return new Api\EntityCustomFieldsApi($this);
+		return new Api\EntityContactsApi($this);
 	}
 }

@@ -15,8 +15,11 @@ use Bluerock\Sellsy\Core\Response;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Individuals
  */
-class IndividualsApi extends AbstractApi
+class IndividualsApi extends AbstractApi implements Contracts\HasContactsApi, Contracts\HasFavouriteFiltersApi
 {
+	use Concerns\CanManageContactsApi,
+		Concerns\CanManageFavouriteFiltersApi;
+
     /**
      * @inheritdoc
      */
