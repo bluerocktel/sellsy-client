@@ -2,6 +2,7 @@
 
 namespace Bluerock\Sellsy\Core;
 
+use Bluerock\Sellsy\Exceptions\ApiClientErrorException;
 use Illuminate\Support\Arr;
 
 /**
@@ -15,25 +16,48 @@ use Illuminate\Support\Arr;
 class Config
 {
     /**
-     * The singleton instance.
+     * The singleton instances (one instance by Sellsy account)
      *
-     * @var Config
+     * @var Config[]
      */
-    protected static $_instance = null;
+    protected static $_instance = [];
+
+	/**
+	 * The current Sellsy account instance name
+	 * @var string
+	 */
+	protected static $_instance_name = '';
+
 
     /**
-     * Get the instance.
+     * Get the instance for the current Sellsy account. To change of context (if you have multiple Sellsy accounts
+	 * at the same time), use switchInstance() to switch to another one.
+	 * @param string $sellsy_account	An identifier for your Sellsy account. Empty if you have only one account
      *
      * @return Config
      */
     public static function getInstance()
     {
-        if (!static::$_instance) {
-            static::$_instance = new static;
+        if (!isset(static::$_instance[static::$_instance_name])) {
+            static::$_instance[static::$_instance_name] = new static;
         }
-
-        return static::$_instance;
+        return static::$_instance[static::$_instance_name];
     }
+
+
+	/**
+	 * Only use if you have multiple Sellsy accounts opened at the same time. Switch to a new instance, identified
+	 * by an arbitrary name you give. Every web request made after this operation will be on the new active instance
+	 * @param string $sellsy_account	An identifier for your Sellsy account. Empty string to switch back to
+	 *                               	the main account (the first one)
+	 *
+	 * @return Config
+	 */
+	public static function switchInstance(string $sellsy_account = '')
+	{
+		static::$_instance_name = $sellsy_account;
+	}
+
 
     /**
      * Private constructor for the singleton.
