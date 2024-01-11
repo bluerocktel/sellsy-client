@@ -15,8 +15,10 @@ use Bluerock\Sellsy\Core\Response;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Invoices
  */
-class InvoicesApi extends AbstractApi
+class InvoicesApi extends AbstractApi implements Contracts\HasFavouriteFiltersApi
 {
+	use Concerns\CanManageFavouriteFiltersApi;
+
     /**
      * @inheritdoc
      */

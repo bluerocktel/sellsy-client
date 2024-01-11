@@ -21,7 +21,8 @@ class Contact extends Entity implements Contracts\HasAddresses, Contracts\HasCus
     use Attributes\Acl,
         Attributes\Addresses,
         Attributes\ContactInfos,
-        Attributes\SmartTags;
+        Attributes\SmartTags,
+		Concerns\CanManageCustomFields;
 
     /**
      * <READONLY> Contact ID from Sellsy.
