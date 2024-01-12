@@ -109,6 +109,32 @@ $config->set('client_id', 'f48f0fgm-2703-5689-2005-27403b5adb8d')
 
 Learn more about Sellsy API v2 credentials on the [official documentation](https://api.sellsy.com/doc/v2/#section/Authentication).
 
+
+### Connect to multiple Sellsy accounts
+<a name="usage_auth_multi_account"></a>
+
+You can connect to many Sellsy accounts at the same time. You just need to configure each instance,
+then switch to one or another with `Config::switchInstance()` (returns a `Config` object for that specific account)
+ 
+```php
+// Configure the first Sellsy account
+Bluerock\Sellsy\Core\Config::switchInstance('first-sellsy')
+    ->set('client_id', 'id-1')
+    ->set('client_secret', 'secret1');
+
+// Configure another one
+Bluerock\Sellsy\Core\Config::switchInstance('other-sellsy')
+    ->set('client_id', 'id-2')
+    ->set('client_secret', 'secret2');
+
+// From now, each request is on the 'other-sellsy' account
+// ...
+
+// To switch back to the first account
+Bluerock\Sellsy\Core\Config::switchInstance('first-sellsy');
+```
+
+
 ## Querying the API
 <a name="usage_query"></a>
 

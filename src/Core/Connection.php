@@ -22,12 +22,6 @@ class Connection
      */
     protected static $_instance = null;
 
-    /**
-     * The config instance.
-     *
-     * @var Config
-     */
-    protected $config = null;
 
     /**
      * Get the instance.
@@ -48,7 +42,6 @@ class Connection
      */
     private function __construct()
     {
-        $this->config = Config::getInstance();
     }
     
     /**
@@ -75,7 +68,7 @@ class Connection
      */
     public function request(string $endpoint)
     {
-        $endpoint = sprintf('%s/%s', trim($this->config->get('url'), '/'), ltrim($endpoint, '/'));
+        $endpoint = sprintf('%s/%s', trim(Config::getInstance()->get('url'), '/'), ltrim($endpoint, '/'));
 
         return Request::make($endpoint)
                     ->withToken($this->getToken())
@@ -92,7 +85,7 @@ class Connection
      */
     protected function hasValidToken()
     {
-        return $this->config->get('authentication.token') && time() < $this->config->get('authentication.expires_at');
+        return Config::getInstance()->get('authentication.token') && time() < Config::getInstance()->get('authentication.expires_at');
     }
     
     /**
@@ -103,19 +96,20 @@ class Connection
      */
     protected function getToken()
     {
+		$config = Config::getInstance();
         if ($this->hasValidToken()) {
-            return $this->config->get('authentication.token');
+            return $config->get('authentication.token');
         }
 
         $auth = new Authentication();
 
         $token = $auth->getToken(
-            $this->config->get('client_id'),
-            $this->config->get('client_secret'),
+            $config->get('client_id'),
+            $config->get('client_secret'),
         );
 
-        $this->config->set('authentication.token', $token['access_token']);
-        $this->config->set('authentication.expires_at', time() + $token['expires_in']);
+        $config->set('authentication.token', $token['access_token']);
+        $config->set('authentication.expires_at', time() + $token['expires_in']);
 
         return $token['access_token'];
     }
