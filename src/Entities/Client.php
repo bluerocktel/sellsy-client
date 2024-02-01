@@ -16,7 +16,11 @@ use Bluerock\Sellsy\Entities\Contracts;
  * @version 1.1
  * @access public
  */
-abstract class Client extends Entity implements Contracts\HasAddresses, Contracts\HasCustomFields, Contracts\HasContacts
+abstract class Client extends Entity
+	implements  Contracts\HasAddresses,
+				Contracts\HasCustomFields,
+				Contracts\HasContacts,
+				Contracts\HasSmartTags
 {
     use Attributes\Acl,
         Attributes\Statistics,
@@ -24,7 +28,8 @@ abstract class Client extends Entity implements Contracts\HasAddresses, Contract
         Attributes\ContactInfos,
         Attributes\SmartTags,
 		Concerns\CanManageContacts,
-		Concerns\CanManageCustomFields;
+		Concerns\CanManageCustomFields,
+		Concerns\CanManageSmartTags;
 
     /**
      * <READONLY> Client ID from Sellsy.

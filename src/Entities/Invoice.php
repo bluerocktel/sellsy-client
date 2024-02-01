@@ -14,9 +14,12 @@ use Bluerock\Sellsy\Entities\InvoiceAmounts;
  * @version 1.2.3
  * @access public
  */
-class Invoice extends Entity implements Contracts\HasCustomFields
+class Invoice extends Entity implements Contracts\HasCustomFields, Contracts\HasSmartTags
 {
-	use Concerns\CanManageCustomFields;
+	use Attributes\SmartTags,
+		Concerns\CanManageCustomFields,
+		Concerns\CanManageSmartTags;
+
 
     /**
      * <READONLY> Invoice ID from Sellsy.
