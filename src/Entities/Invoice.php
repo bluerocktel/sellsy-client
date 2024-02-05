@@ -49,7 +49,7 @@ class Invoice extends Entity implements Contracts\HasCustomFields, Contracts\Has
 
     public ?array $taxes;
 
-    public ?array $discount;
+    public ?InvoiceDiscount $discount;
 
     public ?int $fiscal_year_id;
 
