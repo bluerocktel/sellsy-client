@@ -25,13 +25,10 @@ class ApiEndpointHelper
 	 * @return string	the API endpoint
 	 */
 	public static function getRelatedEntityEndpoint(Entity $relatedEntity) {
-		// Credit-notes endpoint specific format, due to '-'.
-		if ($relatedEntity instanceof CreditNote)
-			return 'credit-notes';
-
 		// Generic conversion (camel case to Sellsy Api V2 convention)
 		$endpoint = Str::of(get_class($relatedEntity))
 			->afterLast('\\')
+			->kebab()
 			->lower()
 			->plural();
 		return (string) $endpoint;
@@ -44,14 +41,11 @@ class ApiEndpointHelper
 	 * @return string	the API endpoint
 	 */
 	public static function getRelatedApiEndpoint(AbstractApi $relatedApi) {
-		// Credit-notes endpoint specific format, due to '-'.
-		if ($relatedApi instanceof CreditNotesApi)
-			return 'credit-notes';
-
 		// Generic conversion (camel case to Sellsy Api V2 convention)
 		$endpoint = Str::of(get_class($relatedApi))
 			->afterLast('\\')
 			->replaceLast('Api', '')
+			->kebab()
 			->lower()
 			->plural();
 		return (string) $endpoint;
