@@ -7,7 +7,7 @@ use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contracts\HasCustomFields;
 use Bluerock\Sellsy\Entities\CustomField;
 use Bluerock\Sellsy\Entities\CustomFieldValue;
-use Illuminate\Support\Str;
+use Bluerock\Sellsy\Helpers\ApiEndpointHelper;
 
 /**
  * The API client for the custom fields management in an entity.
@@ -39,19 +39,10 @@ class EntityCustomFieldsApi extends AbstractApi
 	{
 		parent::__construct();
 
-		$endpoint = Str::of(get_class($relatedEntity))
-			->afterLast('\\')
-			->lower()
-			->plural();
-		// Credit-notes endpoint specific format, due to '-'.
-		if ('creditnotes' == $endpoint) {
-			$endpoint = 'credit-notes';
-		}
-
 		$this->entity     = CustomField::class;
 		$this->collection = CustomFieldCollection::class;
 
-		$this->endpoint = (string) $endpoint;
+		$this->endpoint = ApiEndpointHelper::getRelatedEntityEndpoint($relatedEntity);
 		$this->relatedEntity = $relatedEntity;
 	}
 

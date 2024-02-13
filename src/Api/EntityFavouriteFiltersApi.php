@@ -6,6 +6,7 @@ use Bluerock\Sellsy\Collections\FavouriteFilterCollection;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Api\Contracts\HasFavouriteFiltersApi;
 use Bluerock\Sellsy\Entities\FavouriteFilter;
+use Bluerock\Sellsy\Helpers\ApiEndpointHelper;
 use Illuminate\Support\Str;
 
 /**
@@ -33,17 +34,7 @@ class EntityFavouriteFiltersApi extends AbstractApi
 	{
 		parent::__construct();
 
-		$endpoint = Str::of(get_class($relatedApi))
-			->afterLast('\\')
-			->replaceLast('Api', '')
-			->lower()
-			->plural();
-		// Credit-notes endpoint specific format, due to '-'.
-		if ('creditnotes' == $endpoint) {
-			$endpoint = 'credit-notes';
-		}
-
-		$this->endpoint = (string) $endpoint;
+		$this->endpoint = ApiEndpointHelper::getRelatedApiEndpoint($relatedApi);
 		$this->entity     = FavouriteFilter::class;
 		$this->collection = FavouriteFilterCollection::class;
 	}
