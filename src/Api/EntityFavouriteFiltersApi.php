@@ -38,8 +38,12 @@ class EntityFavouriteFiltersApi extends AbstractApi
 			->replaceLast('Api', '')
 			->lower()
 			->plural();
-		$this->endpoint = (string) $endpoint;
+		// Credit-notes endpoint specific format, due to '-'.
+		if ('creditnotes' == $endpoint) {
+			$endpoint = 'credit-notes';
+		}
 
+		$this->endpoint = (string) $endpoint;
 		$this->entity     = FavouriteFilter::class;
 		$this->collection = FavouriteFilterCollection::class;
 	}

@@ -40,6 +40,11 @@ class EntitySmartTagsApi extends AbstractApi
 			->afterLast('\\')
 			->lower()
 			->plural();
+		// Credit-notes endpoint specific format, due to '-'.
+		if ('creditnotes' == $endpoint) {
+			$endpoint = 'credit-notes';
+		}
+
 		$this->entity     = SmartTag::class;
 		$this->collection = SmartTagCollection::class;
 
