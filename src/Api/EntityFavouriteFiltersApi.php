@@ -6,7 +6,8 @@ use Bluerock\Sellsy\Collections\FavouriteFilterCollection;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Api\Contracts\HasFavouriteFiltersApi;
 use Bluerock\Sellsy\Entities\FavouriteFilter;
-use Illuminate\Support\Str;
+use Bluerock\Sellsy\Helpers\ApiEndpointHelper;
+use function Bluerock\Sellsy\class_to_endpoint;
 
 /**
  * The API client for the favourite filters management of different entity type.
@@ -33,13 +34,7 @@ class EntityFavouriteFiltersApi extends AbstractApi
 	{
 		parent::__construct();
 
-		$endpoint = Str::of(get_class($relatedApi))
-			->afterLast('\\')
-			->replaceLast('Api', '')
-			->lower()
-			->plural();
-		$this->endpoint = (string) $endpoint;
-
+		$this->endpoint = class_to_endpoint($relatedApi);
 		$this->entity     = FavouriteFilter::class;
 		$this->collection = FavouriteFilterCollection::class;
 	}
