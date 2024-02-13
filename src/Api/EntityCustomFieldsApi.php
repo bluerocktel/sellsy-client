@@ -8,6 +8,7 @@ use Bluerock\Sellsy\Entities\Contracts\HasCustomFields;
 use Bluerock\Sellsy\Entities\CustomField;
 use Bluerock\Sellsy\Entities\CustomFieldValue;
 use Bluerock\Sellsy\Helpers\ApiEndpointHelper;
+use function Bluerock\Sellsy\class_to_endpoint;
 
 /**
  * The API client for the custom fields management in an entity.
@@ -42,7 +43,7 @@ class EntityCustomFieldsApi extends AbstractApi
 		$this->entity     = CustomField::class;
 		$this->collection = CustomFieldCollection::class;
 
-		$this->endpoint = ApiEndpointHelper::getRelatedEntityEndpoint($relatedEntity);
+		$this->endpoint = class_to_endpoint($relatedEntity);
 		$this->relatedEntity = $relatedEntity;
 	}
 

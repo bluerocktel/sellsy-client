@@ -6,7 +6,7 @@ use Bluerock\Sellsy\Collections\SmartTagCollection;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contracts\HasSmartTags;
 use Bluerock\Sellsy\Entities\SmartTag;
-use Bluerock\Sellsy\Helpers\ApiEndpointHelper;
+use function Bluerock\Sellsy\class_to_endpoint;
 
 /**
  * The API client for the smarts tags management in an entity.
@@ -39,7 +39,7 @@ class EntitySmartTagsApi extends AbstractApi
 		$this->entity     = SmartTag::class;
 		$this->collection = SmartTagCollection::class;
 
-		$this->endpoint = ApiEndpointHelper::getRelatedEntityEndpoint($relatedEntity);
+		$this->endpoint = class_to_endpoint($relatedEntity);
 		$this->relatedEntity = $relatedEntity;
 	}
 

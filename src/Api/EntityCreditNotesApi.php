@@ -6,7 +6,7 @@ use Bluerock\Sellsy\Collections\CreditNoteCollection;
 use Bluerock\Sellsy\Core\Response;
 use Bluerock\Sellsy\Entities\Contracts\HasCreditNotes;
 use Bluerock\Sellsy\Entities\CreditNote;
-use Illuminate\Support\Str;
+use function Bluerock\Sellsy\class_to_endpoint;
 
 /**
  * The API client for the credit-notes management in an entity.
@@ -38,14 +38,10 @@ class EntityCreditNotesApi extends AbstractApi
 	{
 		parent::__construct();
 
-		$endpoint = Str::of(get_class($relatedEntity))
-			->afterLast('\\')
-			->lower()
-			->plural();
 		$this->entity     = CreditNote::class;
 		$this->collection = CreditNoteCollection::class;
 
-		$this->endpoint = (string) $endpoint;
+		$this->endpoint = class_to_endpoint($relatedEntity);
 		$this->relatedEntity = $relatedEntity;
 	}
 

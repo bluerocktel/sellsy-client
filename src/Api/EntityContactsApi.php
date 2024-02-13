@@ -4,10 +4,9 @@ namespace Bluerock\Sellsy\Api;
 
 use Bluerock\Sellsy\Collections\ContactCollection;
 use Bluerock\Sellsy\Core\Response;
-use Bluerock\Sellsy\Api\Contracts\HasContactsApi;
 use Bluerock\Sellsy\Entities\Contracts\HasContacts;
 use Bluerock\Sellsy\Entities\Contact;
-use Illuminate\Support\Str;
+use function Bluerock\Sellsy\class_to_endpoint;
 
 /**
  * The API client for the contact management of different entity type.
@@ -37,15 +36,10 @@ class EntityContactsApi extends AbstractApi
 	{
 		parent::__construct();
 
-		$endpoint = Str::of(get_class($relatedEntity))
-			->afterLast('\\')
-			->lower()
-			->plural();
-
 		$this->entity     = Contact::class;
 		$this->collection = ContactCollection::class;
 
-		$this->endpoint = (string) $endpoint;
+		$this->endpoint = class_to_endpoint($relatedEntity);
 		$this->relatedEntity = $relatedEntity;
 	}
 
