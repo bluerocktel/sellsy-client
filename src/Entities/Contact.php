@@ -16,14 +16,15 @@ use Bluerock\Sellsy\Entities\Contracts;
  * @version 1.0
  * @access public
  */
-class Contact extends Entity implements Contracts\HasAddresses, Contracts\HasCustomFields, Contracts\HasSmartTags
+class Contact extends Entity implements Contracts\HasAddresses, Contracts\HasCustomFields, Contracts\HasSmartTags, Contracts\HasComments
 {
     use Attributes\Acl,
         Attributes\Addresses,
         Attributes\ContactInfos,
         Attributes\SmartTags,
 		Concerns\CanManageCustomFields,
-		Concerns\CanManageSmartTags;
+		Concerns\CanManageSmartTags,
+        Concerns\CanManageComments;
 
     /**
      * <READONLY> Contact ID from Sellsy.

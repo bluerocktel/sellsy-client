@@ -15,9 +15,10 @@ use Bluerock\Sellsy\Collections\ContactCollection;
  * @access public
  * @see https://api.sellsy.com/doc/v2/#tag/Contacts
  */
-class ContactsApi extends AbstractApi implements Contracts\HasFavouriteFiltersApi
+class ContactsApi extends AbstractApi implements Contracts\HasFavouriteFiltersApi, Contracts\HasCommentsApi
 {
-	use Concerns\CanManageFavouriteFiltersApi;
+	use Concerns\CanManageFavouriteFiltersApi,
+		Concerns\CanManageCommentsApi;
 
     /**
      * @inheritdoc
