@@ -20,7 +20,8 @@ abstract class Client extends Entity
 	implements  Contracts\HasAddresses,
 				Contracts\HasCustomFields,
 				Contracts\HasContacts,
-				Contracts\HasSmartTags
+				Contracts\HasSmartTags,
+				Contracts\HasComments
 {
     use Attributes\Acl,
         Attributes\Statistics,
@@ -29,7 +30,8 @@ abstract class Client extends Entity
         Attributes\SmartTags,
 		Concerns\CanManageContacts,
 		Concerns\CanManageCustomFields,
-		Concerns\CanManageSmartTags;
+		Concerns\CanManageSmartTags,
+        Concerns\CanManageComments;
 
     /**
      * <READONLY> Client ID from Sellsy.

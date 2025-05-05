@@ -2,146 +2,144 @@
 
 namespace Bluerock\Sellsy\Api;
 
-use Bluerock\Sellsy\Entities\Company;
-use Bluerock\Sellsy\Collections\CompanyCollection;
+use Bluerock\Sellsy\Collections\CommentCollection;
 use Bluerock\Sellsy\Core\Response;
+use Bluerock\Sellsy\Entities\Comment;
 
 /**
- * The API client for the `companies` namespace.
+ * The API client for the `comments` namespace.
  *
  * @package bluerock/sellsy-client
- * @author Thomas <thomas@bluerocktel.com>
+ * @author Jérémie <jeremie@kiwik/com>
  * @version 1.2.3
  * @access public
- * @see https://api.sellsy.com/doc/v2/#tag/Companies
+ * @see https://api.sellsy.com/doc/v2/#tag/Comments
  */
-class CompaniesApi extends AbstractApi implements Contracts\HasContactsApi, Contracts\HasFavouriteFiltersApi, Contracts\HasCommentsApi
+class CommentsApi extends AbstractApi
 {
-	use Concerns\CanManageContactsApi,
-		Concerns\CanManageFavouriteFiltersApi,
-		Concerns\CanManageCommentsApi;
-
-    /**
+	/**
      * @inheritdoc
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->entity     = Company::class;
-        $this->collection = CompanyCollection::class;
+        $this->entity     = Comment::class;
+        $this->collection = CommentCollection::class;
     }
 
     /**
-     * List all companies.
+     * List all comments.
      *
      * @param array $query Query parameters.
      *
      * @return \Bluerock\Sellsy\Core\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/get-companies
+     * @see https://api.sellsy.com/doc/v2/#operation/get-comments
      */
     public function index(array $query = []): Response
     {
         $response = $this->connection
-                        ->request('companies')
+                        ->request('comments')
                         ->get($query);
 
         return $this->prepareResponse($response);
     }
 
     /**
-     * Show a single company by id.
+     * Show a single comment by id.
      *
-     * @param string $id     The company id to retrieve.
+     * @param string $id     The comment id to retrieve.
      * @param array  $query  Query parameters.
      *
      * @return \Bluerock\Sellsy\Core\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/get-company
+     * @see https://api.sellsy.com/doc/v2/#operation/get-comment
      */
     public function show(string $id, array $query = []): Response
     {
         $response = $this->connection
-                        ->request("companies/{$id}")
+                        ->request("comments/{$id}")
                         ->get($query);
 
         return $this->prepareResponse($response);
     }
 
     /**
-     * Store (create) an company.
+     * Store (create) an comment.
      *
-     * @param Company $company The company entity to store.
+     * @param Comment $comment The comment entity to store.
      * @param array   $query   Query parameters.
      *
      * @return \Bluerock\Sellsy\Core\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/create-company
+     * @see https://api.sellsy.com/doc/v2/#operation/create-comment
      */
-    public function store(Company $company, array $query = []): Response
+    public function store(Comment $comment, array $query = []): Response
     {
-        $body = $company->except('id')
+        $body = $comment->except('id')
                         ->except('owner')
                         ->toArray();
 
         $response = $this->connection
-                        ->request('companies')
+                        ->request('comments')
                         ->post(array_filter($body) + $query);
 
         return $this->prepareResponse($response);
     }
 
     /**
-     * Update an existing company.
+     * Update an existing comment.
      *
-     * @param Company $company The company entity to store.
+     * @param Comment $comment The comment entity to store.
      * @param array   $query   Query parameters.
      *
      * @return \Bluerock\Sellsy\Core\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/update-company
+     * @see https://api.sellsy.com/doc/v2/#operation/update-comment
      */
-    public function update(Company $company, array $query = []): Response
+    public function update(Comment $comment, array $query = []): Response
     {
-        $body = $company->except('id')
+        $body = $comment->except('id')
                         ->except('owner')
                         ->toArray();
 
         $response = $this->connection
-                        ->request("companies/{$company->id}")
+                        ->request("comments/{$comment->id}")
                         ->put(array_filter($body) + $query);
 
         return $this->prepareResponse($response);
     }
 
     /**
-     * Delete an existing company.
+     * Delete an existing comment.
      *
-     * @param int $id The company id to be deleted.
+     * @param int $id The comment id to be deleted.
      *
      * @return \Bluerock\Sellsy\Core\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/delete-company
+     * @see https://api.sellsy.com/doc/v2/#operation/delete-comment
      */
     public function destroy(int $id): Response
     {
         $response = $this->connection
-                        ->request("companies/{$id}")
+                        ->request("comments/{$id}")
                         ->delete();
 
         return $this->prepareResponse($response);
     }
 
     /**
-     * Search for companies using filters.
+     * Search comments with some filters.
      *
-     * @param array $query Query parameters.
+     * @param array $query    Query parameters.
+     * @param array $filters  Filters to use.
      *
      * @return \Bluerock\Sellsy\Core\Response
-     * @see https://api.sellsy.com/doc/v2/#operation/search-companies
+     * @see https://api.sellsy.com/doc/v2/#operation/search-comments
      */
-    public function search(array $filters = [], array $query = []): Response
+    public function search(array $query = [], array $filters = []): Response
     {
         $response = $this->connection
-                        ->request($this->appendQuery('companies/search', $query))
+                        ->request($this->appendQuery('comments/search', $query))
                         ->post(compact('filters'));
 
         return $this->prepareResponse($response);
     }
+
 }
