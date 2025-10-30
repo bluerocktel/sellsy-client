@@ -44,4 +44,9 @@ class Company extends Client
     {
         return new Api\CompanyAddressesApi($this);
     }
+
+    public function payments(): Api\CompanyPaymentsApi
+    {
+        return new Api\CompanyPaymentsApi($this);
+    }
 }

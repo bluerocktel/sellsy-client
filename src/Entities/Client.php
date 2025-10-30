@@ -18,6 +18,7 @@ use Bluerock\Sellsy\Entities\Contracts;
  */
 abstract class Client extends Entity
 	implements  Contracts\HasAddresses,
+				Contracts\HasPayments,
 				Contracts\HasCustomFields,
 				Contracts\HasContacts,
 				Contracts\HasSmartTags,

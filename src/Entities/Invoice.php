@@ -5,6 +5,7 @@ namespace Bluerock\Sellsy\Entities;
 use Bluerock\Sellsy\Entities\Contracts;
 use Bluerock\Sellsy\Entities\Entity;
 use Bluerock\Sellsy\Entities\InvoiceAmounts;
+use Bluerock\Sellsy\Api;
 
 /**
  * The Invoice Entity.
@@ -14,7 +15,11 @@ use Bluerock\Sellsy\Entities\InvoiceAmounts;
  * @version 1.2.3
  * @access public
  */
-class Invoice extends Entity implements Contracts\HasCustomFields, Contracts\HasSmartTags, Contracts\HasCreditNotes
+class Invoice extends Entity 
+    implements  Contracts\HasCustomFields,
+                Contracts\HasSmartTags, 
+                Contracts\HasCreditNotes, 
+                Contracts\HasPayments
 {
 	use Attributes\SmartTags,
 		Concerns\CanManageCreditNotes,
@@ -89,4 +94,9 @@ class Invoice extends Entity implements Contracts\HasCustomFields, Contracts\Has
      * <READONLY> Client owner from Sellsy.
      */
     public ?array $owner;
+
+    public function payments(): Api\InvoicePaymentsApi
+    {
+        return new Api\InvoicePaymentsApi($this);
+    }
 }
