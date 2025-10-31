@@ -34,4 +34,9 @@ class Individual extends Client
     {
         return new Api\IndividualAddressesApi($this);
     }
+
+    public function payments(): Api\IndividualPaymentsApi
+    {
+        return new Api\IndividualPaymentsApi($this);
+    }
 }
